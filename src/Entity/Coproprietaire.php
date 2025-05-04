@@ -28,6 +28,4 @@ class Coproprietaire
     #[ORM\ManyToOne(targetEntity: Copropriete::class)]
     #[ORM\JoinColumn(name: "id_copropriete", referencedColumnName: "id_copropriete")]
     private ?Copropriete $copropriete = null;
-
-    // Getters et setters à compléter si tu veux
 }
