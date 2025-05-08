@@ -1,6 +1,6 @@
 # ProcesVerbaux-app
 
-## 📋 Liste des tâches
+## Liste des tâches
 
 ### Initialisation
 - [x] Dupliquer `todo-app`
