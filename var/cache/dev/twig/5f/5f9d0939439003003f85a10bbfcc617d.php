@@ -187,6 +187,6 @@ class __TwigTemplate_3383b49421b91472482b736e710f4e4b extends Template
 
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: false }) }}
 {% endblock %}
-", "@WebProfiler/Collector/ajax.html.twig", "/home/denisse/BDWA_v2/tp-01/todo-app/vendor/symfony/web-profiler-bundle/Resources/views/Collector/ajax.html.twig");
+", "@WebProfiler/Collector/ajax.html.twig", "/Users/karenerakotonindrina/Desktop/ProcesVerbaux-app/vendor/symfony/web-profiler-bundle/Resources/views/Collector/ajax.html.twig");
     }
 }

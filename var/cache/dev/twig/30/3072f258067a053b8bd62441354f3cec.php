@@ -1489,6 +1489,6 @@ class __TwigTemplate_073e04192c07b4825617e69486e8e534 extends Template
         <span>{{ route|default(controller) }}</span>
     {%- endif %}
 {% endmacro %}
-", "@WebProfiler/Collector/request.html.twig", "/home/denisse/BDWA_v2/tp-01/todo-app/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
+", "@WebProfiler/Collector/request.html.twig", "/Users/karenerakotonindrina/Desktop/ProcesVerbaux-app/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
     }
 }

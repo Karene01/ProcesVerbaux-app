@@ -1086,6 +1086,6 @@ class __TwigTemplate_36b386a67888558573bb7cbcf3de47d8 extends Template
         {% endfor %}
     </div>
 {% endblock %}
-", "@TwigComponent/Collector/twig_component.html.twig", "/home/denisse/BDWA_v2/tp-01/todo-app/vendor/symfony/ux-twig-component/templates/Collector/twig_component.html.twig");
+", "@TwigComponent/Collector/twig_component.html.twig", "/Users/karenerakotonindrina/Desktop/ProcesVerbaux-app/vendor/symfony/ux-twig-component/templates/Collector/twig_component.html.twig");
     }
 }

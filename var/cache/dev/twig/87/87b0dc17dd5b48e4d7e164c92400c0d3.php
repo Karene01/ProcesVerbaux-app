@@ -1743,6 +1743,6 @@ $context["voter_detail"], "vote", [], "array", false, false, false, 483) == Twig
         </div>
     {% endif %}
 {% endblock %}
-", "@Security/Collector/security.html.twig", "/home/denisse/BDWA_v2/tp-01/todo-app/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
+", "@Security/Collector/security.html.twig", "/Users/karenerakotonindrina/Desktop/ProcesVerbaux-app/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
     }
 }

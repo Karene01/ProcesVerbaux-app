@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
-        'name' => 'oberger/tspcsc4101-todo-skeleton',
-        'pretty_version' => '2.15',
-        'version' => '2.15.0.0',
-        'reference' => null,
+        'name' => '__root__',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '2f3d4851282d319a38146ff93bd42f5f38313924',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '2f3d4851282d319a38146ff93bd42f5f38313924',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'composer/package-versions-deprecated' => array(
             'pretty_version' => '1.11.99.4',
             'version' => '1.11.99.4',
@@ -83,9 +92,9 @@
             'dev_requirement' => true,
         ),
         'doctrine/doctrine-migrations-bundle' => array(
-            'pretty_version' => '3.4.1',
-            'version' => '3.4.1.0',
-            'reference' => 'e858ce0f5c12b266dce7dce24834448355155da7',
+            'pretty_version' => '3.4.2',
+            'version' => '3.4.2.0',
+            'reference' => '5a6ac7120c2924c4c070a869d08b11ccf9e277b9',
             'type' => 'symfony-bundle',
             'install_path' => __DIR__ . '/../doctrine/doctrine-migrations-bundle',
             'aliases' => array(),
@@ -225,15 +234,6 @@
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'oberger/tspcsc4101-todo-skeleton' => array(
-            'pretty_version' => '2.15',
-            'version' => '2.15.0.0',
-            'reference' => null,
-            'type' => 'project',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'ocramius/package-versions' => array(
             'dev_requirement' => false,

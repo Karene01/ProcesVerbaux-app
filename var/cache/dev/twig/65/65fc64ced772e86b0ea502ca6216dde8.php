@@ -199,6 +199,6 @@ class __TwigTemplate_bac5c2188b75b17f43fee278209c6442 extends Template
         <li><a href=\"https://github.com/EasyCorp/EasyAdminBundle\">Project homepage</a></li>
     </ul>
 {% endblock %}
-", "@EasyAdmin/inspector/data_collector.html.twig", "/home/denisse/BDWA_v2/tp-01/todo-app/vendor/easycorp/easyadmin-bundle/templates/inspector/data_collector.html.twig");
+", "@EasyAdmin/inspector/data_collector.html.twig", "/Users/karenerakotonindrina/Desktop/ProcesVerbaux-app/vendor/easycorp/easyadmin-bundle/templates/inspector/data_collector.html.twig");
     }
 }

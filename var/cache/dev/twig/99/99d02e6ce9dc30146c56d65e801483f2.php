@@ -1943,6 +1943,6 @@ class __TwigTemplate_197ee5aa2ba0c5b8b988bfb9ddf15ee8 extends Template
         </tbody>
     </table>
 {% endmacro %}
-", "@Doctrine/Collector/db.html.twig", "/home/denisse/BDWA_v2/tp-01/todo-app/vendor/doctrine/doctrine-bundle/templates/Collector/db.html.twig");
+", "@Doctrine/Collector/db.html.twig", "/Users/karenerakotonindrina/Desktop/ProcesVerbaux-app/vendor/doctrine/doctrine-bundle/templates/Collector/db.html.twig");
     }
 }
