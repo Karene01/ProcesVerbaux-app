@@ -26,7 +26,7 @@ class TodoController extends AbstractController
     <body>
         <h1>Welcome</h1>
             
-    <p>Bienvenue dans notre todo list</p>
+    <p>Bienvenue dans nohtrhyrhyrtre todo list</p>
     </body>
 </html>';
         
