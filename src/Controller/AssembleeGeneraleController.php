@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\QuestionAVoter;
+use App\Entity\QuestionADiscuter;
 
 #[Route('/assemblee/generale')]
 final class AssembleeGeneraleController extends AbstractController
@@ -45,13 +47,39 @@ final class AssembleeGeneraleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
+  /* #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
     public function show(AssembleeGenerale $assembleeGenerale): Response
     {
         return $this->render('assemblee_generale/show.html.twig', [
             'assemblee_generale' => $assembleeGenerale,
         ]);
-    }
+    }*/
+
+    #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
+public function show(AssembleeGenerale $assembleeGenerale): Response
+{
+    // Toutes ces collections sont accessibles grâce aux relations Doctrine
+    $copropriete = $assembleeGenerale->getCopropriete();
+    $questions = $assembleeGenerale->getQuestions();
+    $participations = $assembleeGenerale->getParticipations();
+    $votes = $assembleeGenerale->getVotes();
+
+      //  Filtres utiles :
+    $questionsAVoter = array_filter($questions->toArray(), fn($q) => $q instanceof QuestionAVoter);
+    $questionsADiscuter = array_filter($questions->toArray(), fn($q) => $q instanceof QuestionADiscuter);
+
+    return $this->render('assemblee_generale/show.html.twig', [
+        'assemblee_generale' => $assembleeGenerale,
+        'copropriete' => $copropriete,
+        'questions' => $questions,
+        'participations' => $participations,
+        'votes' => $votes,
+        'questionsAVoter' => $questionsAVoter,         
+        'questionsADiscuter' => $questionsADiscuter 
+    ]);
+}
+
+
 
     #[Route('/{id}/edit', name: 'app_assemblee_generale_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, AssembleeGenerale $assembleeGenerale, EntityManagerInterface $entityManager): Response
@@ -81,4 +109,33 @@ final class AssembleeGeneraleController extends AbstractController
 
         return $this->redirectToRoute('app_assemblee_generale_index', [], Response::HTTP_SEE_OTHER);
     }
+
+#[Route('/{id}/ouvrir', name: 'assemblee_generale_ouvrir', methods: ['POST'])]
+
+
+public function ouvrir(Request $request, AssembleeGenerale $assembleeGenerale, EntityManagerInterface $entityManager): Response
+{
+    if ($this->isCsrfTokenValid('ouvrir'.$assembleeGenerale->getId(), $request->request->get('_token'))) {
+        $assembleeGenerale->setOuverte(true);
+        $entityManager->flush();
+    }
+
+    return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $assembleeGenerale->getId()]);
+
+}
+
+#[Route('/{id}/clore', name: 'assemblee_generale_clore', methods: ['POST'])]
+public function clore(Request $request, AssembleeGenerale $assembleeGenerale, EntityManagerInterface $entityManager): Response
+{
+    if ($this->isCsrfTokenValid('clore' . $assembleeGenerale->getId(), $request->request->get('_token'))) {
+        $assembleeGenerale->setOuverte(false);
+        $entityManager->flush();
+    }
+
+    return $this->redirectToRoute('app_assemblee_generale_show', [
+        'id' => $assembleeGenerale->getId(),
+    ]);
+}
+
+
 }

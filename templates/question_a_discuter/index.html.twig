@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QuestionADiscuter index{% endblock %}
+
+{% block body %}
+    <h1>QuestionADiscuter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question_a_discuter in question_a_discuters %}
+            <tr>
+                <td>{{ question_a_discuter.id }}</td>
+                <td>{{ question_a_discuter.contenu }}</td>
+                <td>
+                    <a href="{{ path('app_question_a_discuter_show', {'id': question_a_discuter.id}) }}">show</a>
+                    <a href="{{ path('app_question_a_discuter_edit', {'id': question_a_discuter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_question_a_discuter_new') }}">Create new</a>
+{% endblock %}

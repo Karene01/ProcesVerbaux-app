@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AssembleeGenerale index{% endblock %}
+
+{% block body %}
+    <h1>AssembleeGenerale index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assemblee_generale in assemblee_generales %}
+            <tr>
+                <td>{{ assemblee_generale.id }}</td>
+                <td>{{ assemblee_generale.date ? assemblee_generale.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ assemblee_generale.heure ? assemblee_generale.heure|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_assemblee_generale_show', {'id': assemblee_generale.id}) }}">show</a>
+                    <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_assemblee_generale_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Copropriete index{% endblock %}
+
+{% block body %}
+    <h1>Copropriete index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomCopropriete</th>
+                <th>AdresseCopropriete</th>
+                <th>TantiemeCopropriete</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for copropriete in coproprietes %}
+            <tr>
+                <td>{{ copropriete.id }}</td>
+                <td>{{ copropriete.nomCopropriete }}</td>
+                <td>{{ copropriete.adresseCopropriete }}</td>
+                <td>{{ copropriete.tantiemeCopropriete }}</td>
+                <td>
+                    <a href="{{ path('app_copropriete_show', {'id': copropriete.id}) }}">show</a>
+                    <a href="{{ path('app_copropriete_edit', {'id': copropriete.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_copropriete_new') }}">Create new</a>
+{% endblock %}

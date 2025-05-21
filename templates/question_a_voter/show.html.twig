@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QuestionAVoter{% endblock %}
+
+{% block body %}
+    <h1>QuestionAVoter</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question_a_voter.id }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ question_a_voter.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_question_a_voter_index') }}">back to list</a>
+
+    <a href="{{ path('app_question_a_voter_edit', {'id': question_a_voter.id}) }}">edit</a>
+
+    {{ include('question_a_voter/_delete_form.html.twig') }}
+{% endblock %}

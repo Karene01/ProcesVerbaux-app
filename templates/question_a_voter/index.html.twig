@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QuestionAVoter index{% endblock %}
+
+{% block body %}
+    <h1>QuestionAVoter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for question_a_voter in question_a_voters %}
+            <tr>
+                <td>{{ question_a_voter.id }}</td>
+                <td>{{ question_a_voter.contenu }}</td>
+                <td>
+                    <a href="{{ path('app_question_a_voter_show', {'id': question_a_voter.id}) }}">show</a>
+                    <a href="{{ path('app_question_a_voter_edit', {'id': question_a_voter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_question_a_voter_new') }}">Create new</a>
+{% endblock %}

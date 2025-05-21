@@ -20,4 +20,38 @@ class QuestionADiscuter
     #[ORM\OneToOne(targetEntity: Question::class)]
     #[ORM\JoinColumn(name: "id_question", referencedColumnName: "id_question")]
     private ?Question $question = null;
+
+    public function getId(): ?int
+{
+    return $this->id;
+}
+
+public function setId(int $id): static
+{
+    $this->id = $id;
+    return $this;
+}
+
+public function getContenu(): ?string
+{
+    return $this->contenu;
+}
+
+public function setContenu(string $contenu): static
+{
+    $this->contenu = $contenu;
+    return $this;
+}
+
+public function getQuestion(): ?Question
+{
+    return $this->question;
+}
+
+public function setQuestion(Question $question): static
+{
+    $this->question = $question;
+    return $this;
+}
+
 }
