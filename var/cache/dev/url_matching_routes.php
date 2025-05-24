@@ -26,6 +26,8 @@ return [
         '/coproprietaire/new' => [[['_route' => 'app_coproprietaire_new', '_controller' => 'App\\Controller\\CoproprietaireController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/copropriete' => [[['_route' => 'app_copropriete_index', '_controller' => 'App\\Controller\\CoproprieteController::index'], null, ['GET' => 0], null, false, false, null]],
         '/copropriete/new' => [[['_route' => 'app_copropriete_new', '_controller' => 'App\\Controller\\CoproprieteController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::index'], null, null, null, false, false, null]],
+        '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\LoginController::logout'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/participation' => [[['_route' => 'app_participation_index', '_controller' => 'App\\Controller\\ParticipationController::index'], null, ['GET' => 0], null, false, false, null]],
         '/participation/new' => [[['_route' => 'app_participation_new', '_controller' => 'App\\Controller\\ParticipationController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/question/a/discuter' => [[['_route' => 'app_question_a_discuter_index', '_controller' => 'App\\Controller\\QuestionADiscuterController::index'], null, ['GET' => 0], null, false, false, null]],
