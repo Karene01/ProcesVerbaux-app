@@ -26,6 +26,7 @@
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
+      <parameter key="BootstrapMenuBundle">Camurphy\BootstrapMenuBundle\BootstrapMenuBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -79,6 +80,10 @@
       <parameter key="WebProfilerBundle" type="collection">
         <parameter key="path">/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/symfony/web-profiler-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\WebProfilerBundle</parameter>
+      </parameter>
+      <parameter key="BootstrapMenuBundle" type="collection">
+        <parameter key="path">/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/camurphy/bootstrap-menu-bundle</parameter>
+        <parameter key="namespace">Camurphy\BootstrapMenuBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -267,6 +272,65 @@
     </parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
+    <parameter key="bootstrap_menu.version">5</parameter>
+    <parameter key="bootstrap_menu.dropdown_active_style">false</parameter>
+    <parameter key="bootstrap_menu.dropdown_item_active_style">false</parameter>
+    <parameter key="bootstrap_menu.menus" type="collection">
+      <parameter key="main" type="collection">
+        <parameter key="items" type="collection">
+          <parameter key="assemblee_generale" type="collection">
+            <parameter key="label">Liste des Assemblées</parameter>
+            <parameter key="route">app_assemblee_generale_index</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+          <parameter key="coprioprietaire" type="collection">
+            <parameter key="label">Liste des Copropriétaires</parameter>
+            <parameter key="route">app_coproprietaire_index</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+          <parameter key="copropriete" type="collection">
+            <parameter key="label">Liste des Copropriétés</parameter>
+            <parameter key="route">app_copropriete_index</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="anonymousaccount" type="collection">
+        <parameter key="items" type="collection">
+          <parameter key="login" type="collection">
+            <parameter key="label">Connexion</parameter>
+            <parameter key="route">app_login</parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="roles" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+        </parameter>
+      </parameter>
+      <parameter key="account" type="collection">
+        <parameter key="items" type="collection">
+          <parameter key="logout" type="collection">
+            <parameter key="label">Déconnexion</parameter>
+            <parameter key="route">app_logout</parameter>
+            <parameter key="roles" type="collection">
+              <parameter>ROLE_USER</parameter>
+            </parameter>
+            <parameter key="is_divider">false</parameter>
+            <parameter key="route_parameters" type="collection"/>
+            <parameter key="items" type="collection"/>
+          </parameter>
+        </parameter>
+      </parameter>
+    </parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -1692,7 +1756,7 @@
       <argument>false</argument>
     </service>
     <service id="assets._default_package" class="Symfony\Component\Asset\PathPackage">
-      <argument></argument>
+      <argument>/startbootstrap-bare-gh-pages</argument>
       <argument type="service" id="assets.empty_version_strategy"/>
       <argument type="service" id="assets.context"/>
     </service>
@@ -2086,6 +2150,7 @@
           <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/symfony/maker-bundle/translations</argument>
           <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/symfony/monolog-bundle/translations</argument>
           <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/symfony/web-profiler-bundle/translations</argument>
+          <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/camurphy/bootstrap-menu-bundle/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -2106,6 +2171,7 @@
             <argument>vendor/symfony/maker-bundle/translations</argument>
             <argument>vendor/symfony/monolog-bundle/translations</argument>
             <argument>vendor/symfony/web-profiler-bundle/translations</argument>
+            <argument>vendor/camurphy/bootstrap-menu-bundle/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -4917,6 +4983,9 @@
       <call method="addExtension">
         <argument type="service" id="twig.extension.webprofiler"/>
       </call>
+      <call method="addExtension">
+        <argument type="service" id="camurphy.bootstrap_menu.twig.menu_extension"/>
+      </call>
       <call method="addGlobal">
         <argument>app</argument>
         <argument type="service" id="twig.app_variable"/>
@@ -5052,6 +5121,14 @@
       <call method="addPath">
         <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/symfony/web-profiler-bundle/Resources/views</argument>
         <argument>!WebProfiler</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/camurphy/bootstrap-menu-bundle/Resources/views</argument>
+        <argument>BootstrapMenu</argument>
+      </call>
+      <call method="addPath">
+        <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/vendor/camurphy/bootstrap-menu-bundle/Resources/views</argument>
+        <argument>!BootstrapMenu</argument>
       </call>
       <call method="addPath">
         <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/templates</argument>
@@ -5536,6 +5613,34 @@
         </argument>
         <argument>null</argument>
       </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.EwVKVDM"/>
+        <argument type="collection">
+          <argument>PUBLIC_ACCESS</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.adaKQ6j"/>
+        <argument type="collection">
+          <argument>PUBLIC_ACCESS</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.zgUyz1A"/>
+        <argument type="collection">
+          <argument>ROLE_USER</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.28NqKnb"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
     </service>
     <service id="security.context_listener" class="Symfony\Component\Security\Http\Firewall\ContextListener">
       <tag name="monolog.logger" channel="security"/>
@@ -5887,7 +5992,7 @@
       <argument>null</argument>
       <argument type="collection">
         <argument key="path">app_logout</argument>
-        <argument key="target">home</argument>
+        <argument key="target">app_assemblee_generale_index</argument>
         <argument key="enable_csrf">null</argument>
         <argument key="csrf_token_id">logout</argument>
         <argument key="csrf_parameter">_csrf_token</argument>
@@ -5936,7 +6041,7 @@
     <service id="security.logout.listener.default.main" class="Symfony\Component\Security\Http\EventListener\DefaultLogoutListener">
       <tag name="kernel.event_subscriber" dispatcher="debug.security.event_dispatcher.main"/>
       <argument type="service" id="security.http_utils"/>
-      <argument>home</argument>
+      <argument>app_assemblee_generale_index</argument>
     </service>
     <service id="security.logout.listener.session.main" class="Symfony\Component\Security\Http\EventListener\SessionLogoutListener">
       <tag name="kernel.event_subscriber" dispatcher="debug.security.event_dispatcher.main"/>
@@ -6055,6 +6160,30 @@
     <service id=".security.request_matcher.28NqKnb" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
       <argument type="collection">
         <argument type="service" id=".security.request_matcher.obhk0jm"/>
+      </argument>
+    </service>
+    <service id=".security.request_matcher.dIXHc1." class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/login$</argument>
+    </service>
+    <service id=".security.request_matcher.EwVKVDM" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher.dIXHc1."/>
+      </argument>
+    </service>
+    <service id=".security.request_matcher.0n7kZNb" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/logout$</argument>
+    </service>
+    <service id=".security.request_matcher.adaKQ6j" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher.0n7kZNb"/>
+      </argument>
+    </service>
+    <service id=".security.request_matcher._LA_AHr" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/</argument>
+    </service>
+    <service id=".security.request_matcher.zgUyz1A" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+      <argument type="collection">
+        <argument type="service" id=".security.request_matcher._LA_AHr"/>
       </argument>
     </service>
     <service id="security.command.user_password_hash" class="Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand">
@@ -6861,6 +6990,13 @@
       <argument>^/((index|app(_[\w]+)?)\.php/)?_wdt</argument>
       <argument type="service" id="web_profiler.csp.handler"/>
       <argument type="service" id="data_collector.dump" on-invalid="ignore"/>
+    </service>
+    <service id="camurphy.bootstrap_menu.twig.menu_extension" class="Camurphy\BootstrapMenuBundle\Twig\Extension\MenuExtension">
+      <tag name="twig.extension"/>
+      <argument>%bootstrap_menu.menus%</argument>
+      <argument>5</argument>
+      <argument>false</argument>
+      <argument>false</argument>
     </service>
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\AddTagCommand" class="App\Command\AddTagCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\AddTagCommand" class="App\Command\AddTagCommand" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8023,10 +8159,10 @@
     <service id="EasyCorp\Bundle\EasyAdminBundle\Registry\DashboardControllerRegistry" class="EasyCorp\Bundle\EasyAdminBundle\Registry\DashboardControllerRegistry">
       <argument>/home/achok/Cours/Ensiie/1A/BDWA/ProjetSymfony/ProcesVerbaux-app/var/cache/dev</argument>
       <argument type="collection">
-        <argument key="App\Controller\Admin\DashboardController">61cce25</argument>
+        <argument key="App\Controller\Admin\DashboardController">9d3a79d</argument>
       </argument>
       <argument type="collection">
-        <argument key="61cce25">App\Controller\Admin\DashboardController</argument>
+        <argument key="9d3a79d">App\Controller\Admin\DashboardController</argument>
       </argument>
     </service>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Registry\CrudControllerRegistry" class="EasyCorp\Bundle\EasyAdminBundle\Registry\CrudControllerRegistry">
@@ -8034,13 +8170,13 @@
         <argument key="App\Controller\Admin\TodoCrudController">App\Entity\Todo</argument>
       </argument>
       <argument type="collection">
-        <argument key="App\Controller\Admin\TodoCrudController">c52708a</argument>
+        <argument key="App\Controller\Admin\TodoCrudController">e1c34b0</argument>
       </argument>
       <argument type="collection">
         <argument key="App\Entity\Todo">App\Controller\Admin\TodoCrudController</argument>
       </argument>
       <argument type="collection">
-        <argument key="c52708a">App\Controller\Admin\TodoCrudController</argument>
+        <argument key="e1c34b0">App\Controller\Admin\TodoCrudController</argument>
       </argument>
     </service>
     <service id="monolog.logger.request" class="Monolog\Logger">

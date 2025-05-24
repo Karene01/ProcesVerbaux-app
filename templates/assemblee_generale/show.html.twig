@@ -3,7 +3,7 @@
 {% block title %}AssembleeGenerale{% endblock %}
 
 {% block body %}
-    <h1>AssembleeGenerale</h1>
+    <h1>Assemblée Générale</h1>
 
     <table class="table">
         <tbody>
@@ -27,13 +27,17 @@
     {% if not assemblee_generale.ouverte %}
     <form method="post" action="{{ path('assemblee_generale_ouvrir', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Débuter cette assemblée ?');">
         <input type="hidden" name="_token" value="{{ csrf_token('ouvrir' ~ assemblee_generale.id) }}">
+        {% if is_granted('ROLE_USER') %}
         <button class="btn btn-success">Débuter l’assemblée</button>
+        {% endif %}
     </form>
 {% else %}
     <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
         <span class="badge bg-success">Assemblée en cours</span>
         <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
+        {% if is_granted('ROLE_USER') %}
         <button class="btn btn-danger">Clôturer l’assemblée</button>
+        {% endif %}
     </form>
 {% endif %}
 
@@ -77,9 +81,11 @@
     {% endfor %}
 </ul>
 
+{% if is_granted('ROLE_USER') %}
 <a class="btn btn-primary" href="{{ path('app_participation_new', {'idAG': assemblee_generale.id}) }}">
     Ajouter une présence
 </a>
+{% endif %}
 
 
 
@@ -100,7 +106,8 @@
 
     <a href="{{ path('app_assemblee_generale_index') }}">back to list</a>
 
-    <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
-
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
+    {% endif %}
     {{ include('assemblee_generale/_delete_form.html.twig') }}
 {% endblock %}

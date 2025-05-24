@@ -3,7 +3,7 @@
 {% block title %}AssembleeGenerale index{% endblock %}
 
 {% block body %}
-    <h1>AssembleeGenerale index</h1>
+    <h1>Liste des Assemblées Générale</h1>
 
     <table class="table">
         <thead>
@@ -22,16 +22,19 @@
                 <td>{{ assemblee_generale.heure ? assemblee_generale.heure|date('H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_assemblee_generale_show', {'id': assemblee_generale.id}) }}">show</a>
+                    {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucune donnée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_assemblee_generale_new') }}">Create new</a>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_assemblee_generale_new') }}">Créer une nouvelle Assemblée</a>
+    {% endif %}
 {% endblock %}
