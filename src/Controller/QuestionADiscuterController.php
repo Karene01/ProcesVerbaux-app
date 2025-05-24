@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/question/a/discuter')]
 final class QuestionADiscuterController extends AbstractController
 {
-    #[Route(name: 'app_question_a_discuter_index', methods: ['GET'])]
+/*    #[Route(name: 'app_question_a_discuter_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $questionADiscuters = $entityManager
@@ -24,6 +24,57 @@ final class QuestionADiscuterController extends AbstractController
             'question_a_discuters' => $questionADiscuters,
         ]);
     }
+*/
+
+#[Route('/', name: 'app_question_a_discuter_index', methods: ['GET'])]
+/*public function index(Request $request, EntityManagerInterface $em): Response
+{
+    $agId = $request->query->get('assemblee');
+
+    if ($agId) {
+        $questions = $em->createQueryBuilder()
+            ->select('qad')
+            ->from('App\Entity\QuestionADiscuter', 'qad')
+            ->join('qad.question', 'q')
+            ->join('q.assembleeGenerale', 'ag')
+            ->where('ag.id = :agId')
+            ->setParameter('agId', $agId)
+            ->getQuery()
+            ->getResult();
+    } else {
+        $questions = $em->getRepository(QuestionADiscuter::class)->findAll();
+    }
+
+    return $this->render('question_a_discuter/index.html.twig', [
+        'question_a_discuters' => $questions,
+    ]);
+}*/
+
+public function index(Request $request, EntityManagerInterface $em): Response
+    {
+        $agId = $request->query->get('assemblee');
+        $repo = $em->getRepository(QuestionADiscuter::class);
+
+        $questions = $agId
+            ? $em->createQueryBuilder()
+                ->select('qd')
+                ->from(QuestionADiscuter::class, 'qd')
+                ->join('qd.question', 'q')
+                ->join('q.assemblee', 'ag')
+                ->where('ag.id = :id')
+                ->setParameter('id', $agId)
+                ->getQuery()
+                ->getResult()
+            : $repo->findAll();
+
+        return $this->render('question_a_discuter/index.html.twig', [
+            'question_a_discuters' => $questions,
+        ]);
+    }
+
+
+
+
 
     #[Route('/new', name: 'app_question_a_discuter_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

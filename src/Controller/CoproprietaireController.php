@@ -71,6 +71,7 @@ final class CoproprietaireController extends AbstractController
         ]);
     }
 
+    
     #[Route('/{id}', name: 'app_coproprietaire_delete', methods: ['POST'])]
     public function delete(Request $request, Coproprietaire $coproprietaire, EntityManagerInterface $entityManager): Response
     {

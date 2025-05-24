@@ -17,41 +17,42 @@ class QuestionAVoter
     #[ORM\Column(name: "question_a_voter", type: "string", length: 255)]
     private ?string $contenu = null;
 
-    #[ORM\OneToOne(targetEntity: Question::class)]
-    #[ORM\JoinColumn(name: "id_question", referencedColumnName: "id_question")]
+ 
+    #[ORM\OneToOne(inversedBy: 'questionAVoter', targetEntity: Question::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: "id_question", referencedColumnName: "id_question", nullable: false)]
     private ?Question $question = null;
 
     public function getId(): ?int
-{
-    return $this->id;
-}
+    {
+        return $this->id;
+    }
 
-public function setId(int $id): static
-{
-    $this->id = $id;
-    return $this;
-}
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+        return $this;
+    }
 
-public function getContenu(): ?string
-{
-    return $this->contenu;
-}
+    public function getContenu(): ?string
+    {
+        return $this->contenu;
+    }
 
-public function setContenu(string $contenu): static
-{
-    $this->contenu = $contenu;
-    return $this;
-}
+    public function setContenu(string $contenu): static
+    {
+        $this->contenu = $contenu;
+        return $this;
+    }
 
-public function getQuestion(): ?Question
-{
-    return $this->question;
-}
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
 
-public function setQuestion(Question $question): static
-{
-    $this->question = $question;
-    return $this;
-}
+    public function setQuestion(Question $question): static
+    {
+        $this->question = $question;
+        return $this;
+    }
 
 }

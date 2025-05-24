@@ -55,7 +55,7 @@ final class AssembleeGeneraleController extends AbstractController
         ]);
     }*/
 
-    #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
+  #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
 public function show(AssembleeGenerale $assembleeGenerale): Response
 {
     // Toutes ces collections sont accessibles grâce aux relations Doctrine
@@ -111,8 +111,6 @@ public function show(AssembleeGenerale $assembleeGenerale): Response
     }
 
 #[Route('/{id}/ouvrir', name: 'assemblee_generale_ouvrir', methods: ['POST'])]
-
-
 public function ouvrir(Request $request, AssembleeGenerale $assembleeGenerale, EntityManagerInterface $entityManager): Response
 {
     if ($this->isCsrfTokenValid('ouvrir'.$assembleeGenerale->getId(), $request->request->get('_token'))) {

@@ -64,12 +64,12 @@ class Participation
         return $this;
     }
 
-    public function getAssemblee(): ?AssembleeGenerale
+    public function getAssembleeGenerale(): ?AssembleeGenerale
     {
         return $this->assemblee;
     }
 
-    public function setAssemblee(AssembleeGenerale $assemblee): static
+    public function setAssembleeGenerale(AssembleeGenerale $assemblee): static
     {
         $this->assemblee = $assemblee;
         return $this;

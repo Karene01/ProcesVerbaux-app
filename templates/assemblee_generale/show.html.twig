@@ -29,78 +29,84 @@
         <input type="hidden" name="_token" value="{{ csrf_token('ouvrir' ~ assemblee_generale.id) }}">
         <button class="btn btn-success">Débuter l’assemblée</button>
     </form>
-{% else %}
-    <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
-        <span class="badge bg-success">Assemblée en cours</span>
-        <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
-        <button class="btn btn-danger">Clôturer l’assemblée</button>
-    </form>
-{% endif %}
-
-<h3>Copropriété</h3>
-<p>{{ copropriete.nomCopropriete }}</p>
-
-<h3>Questions à voter</h3>
-<ul>
-    {% for question in questionsAVoter %}
-        <li>{{ question.intitule }}</li>
     {% else %}
-        <li><em>Aucune question à voter</em></li>
-    {% endfor %}
-</ul>
+        <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
+            <span class="badge bg-success">Assemblée en cours</span>
+            <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
+            <button class="btn btn-danger">Clôturer l’assemblée</button>
+        </form>
+    {% endif %}
 
-<h3>Questions à discuter</h3>
-<ul>
-    {% for question in questionsADiscuter %}
-        <li>{{ question.intitule }}</li>
-    {% else %}
-        <li><em>Aucune question à discuter</em></li>
-    {% endfor %}
-</ul>
+    <h3>Copropriété</h3>
+    <p>{{ copropriete.nomCopropriete }}</p>
 
+    <h3>Questions à voter</h3>
+    <ul>
+        {% set questionsAVoter = assemblee_generale.questions|filter(q => q.questionAVoter is not null) %}
+        {% if questionsAVoter is empty %}
+            <li><em>Aucune question à voter</em></li>
+        {% else %}
+            {% for q in questionsAVoter %}
+                <li>{{ q.questionAVoter.contenu }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
 
-<h3>Participants</h3>
-<ul>
-    {% for p in participations %}
-        <li>
-            {{ p.participant.nom }} {{ p.participant.prenom }}
-            {% if p.present %}
-                – Présent
-            {% elseif p.mandataire %}
-                – Représenté par {{ p.mandataire.nom }} {{ p.mandataire.prenom }}
-            {% else %}
-                – Absent (procuration)
-            {% endif %}
-        </li>
-    {% else %}
-        <li>Aucun participant</li>
-    {% endfor %}
-</ul>
-
-<a class="btn btn-primary" href="{{ path('app_participation_new', {'idAG': assemblee_generale.id}) }}">
-    Ajouter une présence
-</a>
+    <h3>Questions à discuter</h3>
+    <ul>
+        {% set questionsADiscuter = assemblee_generale.questions|filter(q => q.questionADiscuter is not null) %}
+        {% if questionsADiscuter is empty %}
+            <li><em>Aucune question à discuter</em></li>
+        {% else %}
+            {% for q in questionsADiscuter %}
+                <li>{{ q.questionADiscuter.contenu }}</li>
+            {% endfor %}
+        {% endif %}
+    </ul>
 
 
+    <h3>Participants</h3>
+    <ul>
+        {% for p in participations %}
+            <li>
+                {{ p.participant.nom }} {{ p.participant.prenom }}
+                {% if p.present %}
+                    – Présent
+                {% elseif p.mandataire %}
+                    – Représenté par {{ p.mandataire.nom }} {{ p.mandataire.prenom }}
+                {% else %}
+                    – Absent (procuration)
+                {% endif %}
+            </li>
+        {% else %}
+            <li>Aucun participant</li>
+        {% endfor %}
+    </ul>
 
-<h3>Votes</h3>
-<ul>
-    {% for v in votes %}
-        <li>
-            {{ v.coproprietaire.nomCopropriete }} :
-            {{ v.choix }} ({{ v.nbVoix }} voix)
-            – {{ v.question.intitule }}
-        </li>
-    {% else %}
-        <li><em>Aucun vote enregistré</em></li>
-    {% endfor %}
-</ul>
+    <a class="btn btn-primary" href="{{ path('app_participation_new', {'idAG': assemblee_generale.id}) }}">
+        Ajouter une présence
+    </a>
 
 
 
-    <a href="{{ path('app_assemblee_generale_index') }}">back to list</a>
+    <h3>Votes</h3>
+    <ul>
+        {% for v in votes %}
+            <li>
+                {{ v.coproprietaire.nomCopropriete }} :
+                {{ v.choix }} ({{ v.nbVoix }} voix)
+                – {{ v.question.intitule }}
+            </li>
+        {% else %}
+            <li><em>Aucun vote enregistré</em></li>
+        {% endfor %}
+    </ul>
 
-    <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
 
-    {{ include('assemblee_generale/_delete_form.html.twig') }}
+
+        <a href="{{ path('app_assemblee_generale_index') }}">back to list</a>
+
+        <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
+
+        {{ include('assemblee_generale/_delete_form.html.twig') }}
 {% endblock %}

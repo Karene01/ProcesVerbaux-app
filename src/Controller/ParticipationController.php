@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participation;
+use App\Entity\AssembleeGenerale;
 use App\Form\ParticipationForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -81,4 +82,65 @@ final class ParticipationController extends AbstractController
 
         return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/assemblee/{id}/presence/add', name: 'participation_add_presence', methods: ['GET', 'POST'])]
+public function addPresence(Request $request, AssembleeGenerale $ag, EntityManagerInterface $em): Response
+{
+    $participation = new Participation();
+    $participation->setAssembleeGenerale($ag);
+    $participation->setPresent(true);
+
+    $form = $this->createForm(ParticipationForm::class, $participation, [
+        'action_type' => 'presence',
+    ]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($participation);
+        $em->flush();
+
+        return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+    }
+
+    return $this->render('participation/add_presence.html.twig', [
+        'form' => $form,
+        'assemblee' => $ag,
+    ]);
+}
+
+#[Route('/assemblee/{id}/representation/add', name: 'participation_add_representant', methods: ['GET', 'POST'])]
+public function addRepresentant(Request $request, AssembleeGenerale $ag, EntityManagerInterface $em): Response
+{
+    $participation = new Participation();
+    $participation->setAssembleeGenerale($ag);
+    $participation->setPresent(false); // représenté
+
+    $form = $this->createForm(ParticipationForm::class, $participation, [
+        'action_type' => 'representation',
+    ]);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($participation);
+        $em->flush();
+
+        return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+    }
+
+    return $this->render('participation/add_representant.html.twig', [
+        'form' => $form,
+        'assemblee' => $ag,
+    ]);
+}
+
+#[Route('/assemblee/{id}/participations', name: 'participation_list_by_ag', methods: ['GET'])]
+public function listByAG(AssembleeGenerale $ag): Response
+{
+    return $this->render('participation/by_ag.html.twig', [
+        'assemblee' => $ag,
+        'participations' => $ag->getParticipations(),
+    ]);
+}
+
+
 }

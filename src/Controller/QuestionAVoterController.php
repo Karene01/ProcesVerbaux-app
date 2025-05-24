@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/question/a/voter')]
 final class QuestionAVoterController extends AbstractController
 {
-    #[Route(name: 'app_question_a_voter_index', methods: ['GET'])]
+   /* #[Route(name: 'app_question_a_voter_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $questionAVoters = $entityManager
@@ -23,7 +23,32 @@ final class QuestionAVoterController extends AbstractController
         return $this->render('question_a_voter/index.html.twig', [
             'question_a_voters' => $questionAVoters,
         ]);
+    }*/
+
+    #[Route('/', name: 'app_question_a_voter_index', methods: ['GET'])]
+    public function index(Request $request, EntityManagerInterface $em): Response
+    {
+        $agId = $request->query->get('assemblee');
+        $repo = $em->getRepository(QuestionAVoter::class);
+
+        $questions = $agId
+            ? $em->createQueryBuilder()
+                ->select('qv')
+                ->from(QuestionAVoter::class, 'qv')
+                ->join('qv.question', 'q')
+                ->join('q.assemblee', 'ag')
+                ->where('ag.id = :id')
+                ->setParameter('id', $agId)
+                ->getQuery()
+                ->getResult()
+            : $repo->findAll();
+
+        return $this->render('question_a_voter/index.html.twig', [
+            'question_a_voters' => $questions,
+        ]);
     }
+
+
 
     #[Route('/new', name: 'app_question_a_voter_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

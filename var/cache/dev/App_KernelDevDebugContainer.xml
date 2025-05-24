@@ -592,7 +592,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.HSSpEfu"/>
+      <argument type="service" id=".service_locator.Xcu.XMG"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -2935,7 +2935,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.HSSpEfu"/>
+      <argument type="service" id=".service_locator.Xcu.XMG"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7412,6 +7412,25 @@
         <argument key="participation" type="service_closure" id=".errored..service_locator._7hG3Ba.App\Entity\Participation"/>
       </argument>
     </service>
+    <service id=".service_locator.Au.w.Ch" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="ag" type="service_closure" id=".errored..service_locator.Au.w.Ch.App\Entity\AssembleeGenerale"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.M_kaTgi" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="ag" type="service_closure" id=".errored..service_locator.M_kaTgi.App\Entity\AssembleeGenerale"/>
+      </argument>
+    </service>
+    <service id=".service_locator.9kKwU2t" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.WFmjo5P" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7464,7 +7483,7 @@
         <argument key="vote" type="service_closure" id=".errored..service_locator.pzYdd46.App\Entity\Vote"/>
       </argument>
     </service>
-    <service id=".service_locator.HSSpEfu" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Xcu.XMG" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\DashboardController::configureUserMenu" type="service_closure" id=".service_locator.t7nLwyX"/>
@@ -7506,19 +7525,22 @@
         <argument key="App\Controller\CoproprieteController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\CoproprieteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\CoproprieteController::show" type="service_closure" id=".service_locator.sYydf6b"/>
+        <argument key="App\Controller\ParticipationController::addPresence" type="service_closure" id=".service_locator.Au.w.Ch"/>
+        <argument key="App\Controller\ParticipationController::addRepresentant" type="service_closure" id=".service_locator.Au.w.Ch"/>
         <argument key="App\Controller\ParticipationController::delete" type="service_closure" id=".service_locator._7hG3Ba"/>
         <argument key="App\Controller\ParticipationController::edit" type="service_closure" id=".service_locator._7hG3Ba"/>
         <argument key="App\Controller\ParticipationController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\ParticipationController::listByAG" type="service_closure" id=".service_locator.M_kaTgi"/>
         <argument key="App\Controller\ParticipationController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\ParticipationController::show" type="service_closure" id=".service_locator.7Fv2XHF"/>
         <argument key="App\Controller\QuestionADiscuterController::delete" type="service_closure" id=".service_locator.d0dwKT5"/>
         <argument key="App\Controller\QuestionADiscuterController::edit" type="service_closure" id=".service_locator.d0dwKT5"/>
-        <argument key="App\Controller\QuestionADiscuterController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\QuestionADiscuterController::index" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\QuestionADiscuterController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\QuestionADiscuterController::show" type="service_closure" id=".service_locator.WFmjo5P"/>
         <argument key="App\Controller\QuestionAVoterController::delete" type="service_closure" id=".service_locator.1X2y0fH"/>
         <argument key="App\Controller\QuestionAVoterController::edit" type="service_closure" id=".service_locator.1X2y0fH"/>
-        <argument key="App\Controller\QuestionAVoterController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\QuestionAVoterController::index" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\QuestionAVoterController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\QuestionAVoterController::show" type="service_closure" id=".service_locator.nPsbt_3"/>
         <argument key="App\Controller\QuestionController::delete" type="service_closure" id=".service_locator.Fk8aPoM"/>
@@ -7574,19 +7596,22 @@
         <argument key="App\Controller\CoproprieteController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\CoproprieteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\CoproprieteController:show" type="service_closure" id=".service_locator.sYydf6b"/>
+        <argument key="App\Controller\ParticipationController:addPresence" type="service_closure" id=".service_locator.Au.w.Ch"/>
+        <argument key="App\Controller\ParticipationController:addRepresentant" type="service_closure" id=".service_locator.Au.w.Ch"/>
         <argument key="App\Controller\ParticipationController:delete" type="service_closure" id=".service_locator._7hG3Ba"/>
         <argument key="App\Controller\ParticipationController:edit" type="service_closure" id=".service_locator._7hG3Ba"/>
         <argument key="App\Controller\ParticipationController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\ParticipationController:listByAG" type="service_closure" id=".service_locator.M_kaTgi"/>
         <argument key="App\Controller\ParticipationController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\ParticipationController:show" type="service_closure" id=".service_locator.7Fv2XHF"/>
         <argument key="App\Controller\QuestionADiscuterController:delete" type="service_closure" id=".service_locator.d0dwKT5"/>
         <argument key="App\Controller\QuestionADiscuterController:edit" type="service_closure" id=".service_locator.d0dwKT5"/>
-        <argument key="App\Controller\QuestionADiscuterController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\QuestionADiscuterController:index" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\QuestionADiscuterController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\QuestionADiscuterController:show" type="service_closure" id=".service_locator.WFmjo5P"/>
         <argument key="App\Controller\QuestionAVoterController:delete" type="service_closure" id=".service_locator.1X2y0fH"/>
         <argument key="App\Controller\QuestionAVoterController:edit" type="service_closure" id=".service_locator.1X2y0fH"/>
-        <argument key="App\Controller\QuestionAVoterController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\QuestionAVoterController:index" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\QuestionAVoterController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\QuestionAVoterController:show" type="service_closure" id=".service_locator.nPsbt_3"/>
         <argument key="App\Controller\QuestionController:delete" type="service_closure" id=".service_locator.Fk8aPoM"/>
@@ -8657,6 +8682,12 @@
     </service>
     <service id=".errored..service_locator._7hG3Ba.App\Entity\Participation" class="App\Entity\Participation">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator._7hG3Ba&quot;: it needs an instance of &quot;App\Entity\Participation&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.Au.w.Ch.App\Entity\AssembleeGenerale" class="App\Entity\AssembleeGenerale">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.Au.w.Ch&quot;: it needs an instance of &quot;App\Entity\AssembleeGenerale&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.M_kaTgi.App\Entity\AssembleeGenerale" class="App\Entity\AssembleeGenerale">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.M_kaTgi&quot;: it needs an instance of &quot;App\Entity\AssembleeGenerale&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.WFmjo5P.App\Entity\QuestionADiscuter" class="App\Entity\QuestionADiscuter">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.WFmjo5P&quot;: it needs an instance of &quot;App\Entity\QuestionADiscuter&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -9811,7 +9842,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.HSSpEfu"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Xcu.XMG"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -9836,7 +9867,7 @@
     <service id=".service_locator.VNnKE_V" alias=".service_locator.1X2y0fH"/>
     <service id=".service_locator.KPV0MsR" alias=".service_locator.Fk8aPoM"/>
     <service id=".service_locator.2BiSfZq" alias=".service_locator.pzYdd46"/>
-    <service id=".service_locator.stS4AS_" alias=".service_locator.HSSpEfu"/>
+    <service id=".service_locator.M_KDt2v" alias=".service_locator.Xcu.XMG"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.F9PKc.7"/>
     <service id=".service_locator.T0ov5g_" alias=".service_locator.Lonl2Pe"/>
     <service id=".service_locator.LMuqDDe" alias=".service_locator.VHsrTPK"/>
@@ -9879,6 +9910,9 @@
     <service id=".service_locator.SE12Ql_" alias=".service_locator.wTWsUa6"/>
     <service id=".service_locator.VToZbUW" alias=".service_locator.7Fv2XHF"/>
     <service id=".service_locator.fK398jt" alias=".service_locator._7hG3Ba"/>
+    <service id=".service_locator.ZYkzJBz" alias=".service_locator.Au.w.Ch"/>
+    <service id=".service_locator.Sa29uHN" alias=".service_locator.M_kaTgi"/>
+    <service id=".service_locator.gaTSUXr" alias=".service_locator.9kKwU2t"/>
     <service id=".service_locator.NIfB322" alias=".service_locator.WFmjo5P"/>
     <service id=".service_locator.5ns4KCU" alias=".service_locator.d0dwKT5"/>
     <service id=".service_locator.yQmI34Y" alias=".service_locator.nPsbt_3"/>
