@@ -1,0 +1,28 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        assemblee_generale:
+          label: 'Liste des Assemblées'
+          route: 'app_assemblee_generale_index'
+        
+        coprioprietaire:
+          label: 'Liste des Copropriétaires'
+          route: 'app_coproprietaire_index'
+
+        copropriete:
+          label: 'Liste des Copropriétés'
+          route: 'app_copropriete_index'
+
+    anonymousaccount:
+      items:
+         login:
+            label: 'Connexion'
+            route: 'app_login'
+
+    account:
+      items:
+         logout:
+            label: 'Déconnexion'
+            route: 'app_logout'
+            roles: [ 'ROLE_USER' ]
