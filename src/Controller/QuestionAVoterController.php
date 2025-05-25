@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\AssembleeGenerale;
+use App\Entity\Question;
 use App\Entity\QuestionAVoter;
 use App\Form\QuestionAVoterForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,17 +15,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/question/a/voter')]
 final class QuestionAVoterController extends AbstractController
 {
-   /* #[Route(name: 'app_question_a_voter_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
-    {
-        $questionAVoters = $entityManager
-            ->getRepository(QuestionAVoter::class)
-            ->findAll();
-
-        return $this->render('question_a_voter/index.html.twig', [
-            'question_a_voters' => $questionAVoters,
-        ]);
-    }*/
 
     #[Route('/', name: 'app_question_a_voter_index', methods: ['GET'])]
     public function index(Request $request, EntityManagerInterface $em): Response
@@ -106,4 +97,32 @@ final class QuestionAVoterController extends AbstractController
 
         return $this->redirectToRoute('app_question_a_voter_index', [], Response::HTTP_SEE_OTHER);
     }
+
+   
+#[Route('/assemblee/{id}/question-a-voter/add', name: 'app_question_a_voter_new_for_ag')]
+public function newForAG(AssembleeGenerale $assemblee, Request $request, EntityManagerInterface $em): Response
+{
+    $question = new Question();
+    $questionAVoter = new QuestionAVoter();
+    $question->setAssembleeGenerale($assemblee);
+    $question->setQuestionAVoter($questionAVoter);
+
+    $form = $this->createForm(QuestionAVoterForm::class, $questionAVoter);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($question);
+        $em->persist($questionAVoter);
+        $em->flush();
+
+        $this->addFlash('success', 'Question à voter ajoutée.');
+        return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $assemblee->getId()]);
+    }
+
+    return $this->render('question_a_voter/new.html.twig', [
+        'form' => $form,
+        'assemblee_generale' => $assemblee,
+    ]);
+}
+
 }

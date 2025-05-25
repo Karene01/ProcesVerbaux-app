@@ -47,13 +47,7 @@ final class AssembleeGeneraleController extends AbstractController
         ]);
     }
 
-  /* #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
-    public function show(AssembleeGenerale $assembleeGenerale): Response
-    {
-        return $this->render('assemblee_generale/show.html.twig', [
-            'assemblee_generale' => $assembleeGenerale,
-        ]);
-    }*/
+ 
 
   #[Route('/{id}', name: 'app_assemblee_generale_show', methods: ['GET'])]
 public function show(AssembleeGenerale $assembleeGenerale): Response
@@ -62,7 +56,15 @@ public function show(AssembleeGenerale $assembleeGenerale): Response
     $copropriete = $assembleeGenerale->getCopropriete();
     $questions = $assembleeGenerale->getQuestions();
     $participations = $assembleeGenerale->getParticipations();
-    $votes = $assembleeGenerale->getVotes();
+    //$votes = $assembleeGenerale->getVotes();
+
+    $votes = [];
+    foreach ($participations as $participation) {
+        foreach ($participation->getVotes() as $vote) {
+            $votes[] = $vote;
+    }
+}
+
 
       //  Filtres utiles :
     $questionsAVoter = array_filter($questions->toArray(), fn($q) => $q instanceof QuestionAVoter);

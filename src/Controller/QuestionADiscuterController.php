@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\AssembleeGenerale;
+use App\Entity\Question;
 use App\Entity\QuestionADiscuter;
 use App\Form\QuestionADiscuterForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -132,4 +134,31 @@ public function index(Request $request, EntityManagerInterface $em): Response
 
         return $this->redirectToRoute('app_question_a_discuter_index', [], Response::HTTP_SEE_OTHER);
     }
+
+      
+#[Route('/assemblee/{id}/question-a-discuter/add', name: 'app_question_a_discuter_new_for_ag')]
+public function newForAG(AssembleeGenerale $assemblee, Request $request, EntityManagerInterface $em): Response
+{
+    $question = new Question();
+    $questionADiscuter = new QuestionADiscuter();
+    $question->setAssembleeGenerale($assemblee);
+    $question->setQuestionADiscuter($questionADiscuter);
+
+    $form = $this->createForm(QuestionADiscuterForm::class, $questionADiscuter);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $em->persist($question);
+        $em->persist($questionADiscuter);
+        $em->flush();
+
+        $this->addFlash('success', 'Question à discuter ajoutée.');
+        return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $assemblee->getId()]);
+    }
+
+    return $this->render('question_a_discuter/new.html.twig', [
+        'form' => $form,
+        'assemblee_generale' => $assemblee,
+    ]);
+}
 }

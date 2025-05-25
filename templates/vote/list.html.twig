@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des votes{% endblock %}
+
+{% block body %}
+    <h1>Votes de l'assemblée n°{{ assemblee.id }}</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <ul>
+        {% for vote in votes %}
+            <li>
+                {{ vote.participation.participant.nom }} {{ vote.participation.participant.prenom }} –
+                {{ vote.question.questionAVoter.contenu ?? 'Question inconnue' }} –
+                <strong>{{ vote.valeurVote }}</strong>
+
+                <form method="post"
+                      action="{{ path('app_vote_delete_custom', { id: vote.id }) }}"
+                      onsubmit="return confirm('Supprimer ce vote ?');"
+                      style="display:inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ vote.id) }}">
+                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                </form>
+            </li>
+        {% else %}
+            <li><em>Aucun vote enregistré</em></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_assemblee_generale_show', { id: assemblee.id }) }}">← Retour à l’assemblée</a>
+{% endblock %}

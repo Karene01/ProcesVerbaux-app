@@ -83,4 +83,5 @@ class Vote
         return $this;
     }
 
+    
 }

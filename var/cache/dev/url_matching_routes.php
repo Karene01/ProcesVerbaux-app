@@ -103,27 +103,43 @@ return [
                 .')'
                 .'|/question/(?'
                     .'|a/(?'
-                        .'|discuter/([^/]++)(?'
-                            .'|(*:654)'
-                            .'|/edit(*:667)'
-                            .'|(*:675)'
+                        .'|discuter/(?'
+                            .'|([^/]++)(?'
+                                .'|(*:657)'
+                                .'|/edit(*:670)'
+                                .'|(*:678)'
+                            .')'
+                            .'|assemblee/([^/]++)/question\\-a\\-discuter/add(*:731)'
                         .')'
-                        .'|voter/([^/]++)(?'
-                            .'|(*:701)'
-                            .'|/edit(*:714)'
-                            .'|(*:722)'
+                        .'|voter/(?'
+                            .'|([^/]++)(?'
+                                .'|(*:760)'
+                                .'|/edit(*:773)'
+                                .'|(*:781)'
+                            .')'
+                            .'|assemblee/([^/]++)/question\\-a\\-voter/add(*:831)'
                         .')'
                     .')'
                     .'|([^/]++)(?'
-                        .'|(*:743)'
-                        .'|/edit(*:756)'
-                        .'|(*:764)'
+                        .'|(*:852)'
+                        .'|/edit(*:865)'
+                        .'|(*:873)'
                     .')'
                 .')'
-                .'|/vote/([^/]++)(?'
-                    .'|(*:791)'
-                    .'|/edit(*:804)'
-                    .'|(*:812)'
+                .'|/vote/(?'
+                    .'|([^/]++)(?'
+                        .'|(*:903)'
+                        .'|/edit(*:916)'
+                        .'|(*:924)'
+                    .')'
+                    .'|vote/(?'
+                        .'|assemblee/([^/]++)/(?'
+                            .'|questions(*:972)'
+                            .'|liste(*:985)'
+                        .')'
+                        .'|vote/([^/]++)/([^/]++)/submit(*:1023)'
+                        .'|([^/]++)/supprimer(*:1050)'
+                    .')'
                 .')'
             .')/?$}sDu',
     ],
@@ -153,22 +169,28 @@ return [
         491 => [[['_route' => 'app_participation_show', '_controller' => 'App\\Controller\\ParticipationController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         504 => [[['_route' => 'app_participation_edit', '_controller' => 'App\\Controller\\ParticipationController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         512 => [[['_route' => 'app_participation_delete', '_controller' => 'App\\Controller\\ParticipationController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        558 => [[['_route' => 'participation_add_presence', '_controller' => 'App\\Controller\\ParticipationController::addPresence'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        558 => [[['_route' => 'app_participation_add_presence', '_controller' => 'App\\Controller\\ParticipationController::addPresence'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         579 => [[['_route' => 'participation_list_by_ag', '_controller' => 'App\\Controller\\ParticipationController::listByAG'], ['id'], ['GET' => 0], null, false, false, null]],
         606 => [[['_route' => 'participation_add_representant', '_controller' => 'App\\Controller\\ParticipationController::addRepresentant'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        654 => [[['_route' => 'app_question_a_discuter_show', '_controller' => 'App\\Controller\\QuestionADiscuterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        667 => [[['_route' => 'app_question_a_discuter_edit', '_controller' => 'App\\Controller\\QuestionADiscuterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        675 => [[['_route' => 'app_question_a_discuter_delete', '_controller' => 'App\\Controller\\QuestionADiscuterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        701 => [[['_route' => 'app_question_a_voter_show', '_controller' => 'App\\Controller\\QuestionAVoterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        714 => [[['_route' => 'app_question_a_voter_edit', '_controller' => 'App\\Controller\\QuestionAVoterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        722 => [[['_route' => 'app_question_a_voter_delete', '_controller' => 'App\\Controller\\QuestionAVoterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        743 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        756 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        764 => [[['_route' => 'app_question_delete', '_controller' => 'App\\Controller\\QuestionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        791 => [[['_route' => 'app_vote_show', '_controller' => 'App\\Controller\\VoteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        804 => [[['_route' => 'app_vote_edit', '_controller' => 'App\\Controller\\VoteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        812 => [
-            [['_route' => 'app_vote_delete', '_controller' => 'App\\Controller\\VoteController::delete'], ['id'], ['POST' => 0], null, false, true, null],
+        657 => [[['_route' => 'app_question_a_discuter_show', '_controller' => 'App\\Controller\\QuestionADiscuterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        670 => [[['_route' => 'app_question_a_discuter_edit', '_controller' => 'App\\Controller\\QuestionADiscuterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        678 => [[['_route' => 'app_question_a_discuter_delete', '_controller' => 'App\\Controller\\QuestionADiscuterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        731 => [[['_route' => 'app_question_a_discuter_new_for_ag', '_controller' => 'App\\Controller\\QuestionADiscuterController::newForAG'], ['id'], null, null, false, false, null]],
+        760 => [[['_route' => 'app_question_a_voter_show', '_controller' => 'App\\Controller\\QuestionAVoterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        773 => [[['_route' => 'app_question_a_voter_edit', '_controller' => 'App\\Controller\\QuestionAVoterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        781 => [[['_route' => 'app_question_a_voter_delete', '_controller' => 'App\\Controller\\QuestionAVoterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        831 => [[['_route' => 'app_question_a_voter_new_for_ag', '_controller' => 'App\\Controller\\QuestionAVoterController::newForAG'], ['id'], null, null, false, false, null]],
+        852 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        865 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        873 => [[['_route' => 'app_question_delete', '_controller' => 'App\\Controller\\QuestionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        903 => [[['_route' => 'app_vote_show', '_controller' => 'App\\Controller\\VoteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        916 => [[['_route' => 'app_vote_edit', '_controller' => 'App\\Controller\\VoteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        924 => [[['_route' => 'app_vote_delete', '_controller' => 'App\\Controller\\VoteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        972 => [[['_route' => 'app_vote_questions', '_controller' => 'App\\Controller\\VoteController::questions'], ['id'], null, null, false, false, null]],
+        985 => [[['_route' => 'app_vote_list', '_controller' => 'App\\Controller\\VoteController::listVotes'], ['id'], ['GET' => 0], null, false, false, null]],
+        1023 => [[['_route' => 'app_vote_submit', '_controller' => 'App\\Controller\\VoteController::submit'], ['questionId', 'participationId'], ['POST' => 0], null, false, false, null]],
+        1050 => [
+            [['_route' => 'app_vote_delete_custom', '_controller' => 'App\\Controller\\VoteController::deleteVoteManuellement'], ['id'], ['POST' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

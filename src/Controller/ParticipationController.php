@@ -83,30 +83,33 @@ final class ParticipationController extends AbstractController
         return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/assemblee/{id}/presence/add', name: 'participation_add_presence', methods: ['GET', 'POST'])]
+
+#[Route('/assemblee/{id}/presence/add', name: 'app_participation_add_presence', methods: ['GET', 'POST'])]
 public function addPresence(Request $request, AssembleeGenerale $ag, EntityManagerInterface $em): Response
 {
     $participation = new Participation();
-    $participation->setAssembleeGenerale($ag);
-    $participation->setPresent(true);
+    $participation->setAssembleeGenerale($ag); 
 
-    $form = $this->createForm(ParticipationForm::class, $participation, [
-        'action_type' => 'presence',
-    ]);
+    $form = $this->createForm(ParticipationForm::class, $participation);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         $em->persist($participation);
         $em->flush();
 
-        return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+        $this->addFlash('success', 'Présence enregistrée avec succès.');
+        return $this->redirectToRoute('app_assemblee_generale_show', [
+            'id' => $ag->getId(),
+        ]);
     }
 
     return $this->render('participation/add_presence.html.twig', [
         'form' => $form,
-        'assemblee' => $ag,
+        'assemblee_generale' => $ag,
     ]);
 }
+
+
 
 #[Route('/assemblee/{id}/representation/add', name: 'participation_add_representant', methods: ['GET', 'POST'])]
 public function addRepresentant(Request $request, AssembleeGenerale $ag, EntityManagerInterface $em): Response

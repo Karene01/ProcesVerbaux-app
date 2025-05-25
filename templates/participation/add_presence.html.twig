@@ -1,0 +1,33 @@
+<h1>Ajouter une présence</h1>
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.participant) }}
+    {{ form_row(form.mandataire) }}
+    {{ form_row(form.assembleeGenerale) }}
+    {{ form_row(form.present) }}
+
+    <button type="submit" class="btn">Valider</button>
+{{ form_end(form) }}
+
+<a href="{{ path('app_assemblee_generale_show', { id: assemblee_generale.id }) }}">Retour</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const presentCheckbox = document.querySelector('#participation_present');
+        const mandataireField = document.querySelector('#participation_mandataire');
+
+        function toggleMandataire() {
+            if (presentCheckbox.checked) {
+                mandataireField.value = '';
+                mandataireField.disabled = true;
+            } else {
+                mandataireField.disabled = false;
+            }
+        }
+
+        presentCheckbox.addEventListener('change', toggleMandataire);
+        toggleMandataire(); // appel initial
+    });
+</script>

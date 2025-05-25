@@ -7,5 +7,6 @@
 
     {{ include('question_a_voter/_form.html.twig') }}
 
-    <a href="{{ path('app_question_a_voter_index') }}">back to list</a>
+    <a href="{{ path('app_assemblee_generale_show', { id: assemblee_generale.id }) }}">← Retour à l’assemblée générale</a>
+
 {% endblock %}

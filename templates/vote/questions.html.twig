@@ -1,0 +1,33 @@
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% for participation in participations %}
+    <h3>{{ participation.participant.nom }} {{ participation.participant.prenom }}</h3>
+
+    {% for question in questions %}
+        {% if question.questionAVoter is not null %}
+            <div class="mb-4">
+                <h5>{{ question.questionAVoter.contenu }}</h5>
+                <form method="post" action="{{ path('app_vote_submit', { questionId: question.id, participationId: participation.id }) }}">
+                    <select name="valeur_vote" required>
+    <option value="">-- Choisir --</option>
+    <option value="Pour" {{ voteMap[question.id][participation.id] is defined and voteMap[question.id][participation.id] == 'Pour' ? 'selected' : '' }}>Pour</option>
+    <option value="Contre" {{ voteMap[question.id][participation.id] is defined and voteMap[question.id][participation.id] == 'Contre' ? 'selected' : '' }}>Contre</option>
+    <option value="Abstention" {{ voteMap[question.id][participation.id] is defined and voteMap[question.id][participation.id] == 'Abstention' ? 'selected' : '' }}>Abstention</option>
+</select>
+
+                    <button type="submit" class="btn btn-primary btn-sm">Voter</button>
+                </form>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+
+
+
+<a href="{{ path('app_assemblee_generale_show', {'id': assemblee.id}) }}" class="btn btn-secondary mt-4">← Retour à l’assemblée générale</a>
+

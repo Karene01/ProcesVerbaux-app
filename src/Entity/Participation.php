@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
+use App\Entity\Vote;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: "PARTICIPATION")]
@@ -55,14 +60,12 @@ class Participation
         return $this->mandataire;
     }
 
-    public function setMandataire(?Coproprietaire $mandataire): static
-    {
-        if ($this->present && $mandataire !== null) {
-            throw new \LogicException('Un participant présent ne peut pas avoir de mandataire');
-        }
-        $this->mandataire = $mandataire;
-        return $this;
-    }
+   public function setMandataire(?Coproprietaire $mandataire): static
+{
+    $this->mandataire = $mandataire;
+    return $this;
+}
+
 
     public function getAssembleeGenerale(): ?AssembleeGenerale
     {
@@ -88,4 +91,42 @@ class Participation
         $this->present = $present;
         return $this;
     }
+
+ 
+
+#[Assert\Callback]
+public function validateParticipation(ExecutionContextInterface $context): void
+{
+    if ($this->present && $this->mandataire !== null) {
+        $context->buildViolation('Un participant présent ne peut pas avoir de mandataire')
+            ->atPath('mandataire')
+            ->addViolation();
+    }
+}
+
+#[ORM\OneToMany(mappedBy: 'participation', targetEntity: Vote::class, cascade: ['persist', 'remove'])]
+    private Collection $votes;
+
+    public function __construct()
+    {
+        $this->votes = new ArrayCollection();
+    }
+
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setParticipation($this);
+        }
+
+        return $this;
+    }
+
+   
+
 }

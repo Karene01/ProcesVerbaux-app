@@ -14,12 +14,9 @@ class QuestionADiscuterForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('contenu')
-            ->add('question', EntityType::class, [
-                'class' => Question::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ->add('contenu');
+           
+    
     }
 
     public function configureOptions(OptionsResolver $resolver): void

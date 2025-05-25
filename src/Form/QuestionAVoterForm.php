@@ -15,10 +15,7 @@ class QuestionAVoterForm extends AbstractType
     {
         $builder
             ->add('contenu')
-            ->add('question', EntityType::class, [
-                'class' => Question::class,
-                'choice_label' => 'id',
-            ])
+            
         ;
     }
 
