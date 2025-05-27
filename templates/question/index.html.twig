@@ -3,13 +3,13 @@
 {% block title %}Question index{% endblock %}
 
 {% block body %}
-    <h1>Question index</h1>
+    <h1>Liste des Question</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>actions</th>
+                <th>Identifant</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -17,17 +17,17 @@
             <tr>
                 <td>{{ question.id }}</td>
                 <td>
-                    <a href="{{ path('app_question_show', {'id': question.id}) }}">show</a>
-                    <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
+                    <a href="{{ path('app_question_show', {'id': question.id}) }}">Montrer</a>
+                    <a href="{{ path('app_question_edit', {'id': question.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">no records found</td>
+                <td colspan="2">Aucune données disponible</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_question_new') }}">Create new</a>
+    <a href="{{ path('app_question_new') }}">Créer une question</a>
 {% endblock %}

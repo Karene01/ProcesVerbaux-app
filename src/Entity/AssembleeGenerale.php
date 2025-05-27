@@ -28,7 +28,7 @@ class AssembleeGenerale
     private ?Copropriete $copropriete = null;
 
     #[ORM\Column]
-    private ?bool $ouverte = null;
+    private bool $ouverte = false;
 
     #[ORM\OneToMany(mappedBy: 'assembleeGenerale', targetEntity: Question::class, orphanRemoval: true)]
 private Collection $questions;

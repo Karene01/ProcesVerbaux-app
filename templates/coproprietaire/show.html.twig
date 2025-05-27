@@ -3,12 +3,12 @@
 {% block title %}Coproprietaire{% endblock %}
 
 {% block body %}
-    <h1>Coproprietaire</h1>
+    <h1>Copropriétaire</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <td>{{ coproprietaire.id }}</td>
             </tr>
             <tr>
@@ -16,7 +16,7 @@
                 <td>{{ coproprietaire.nom }}</td>
             </tr>
             <tr>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <td>{{ coproprietaire.prenom }}</td>
             </tr>
             <tr>
@@ -24,15 +24,15 @@
                 <td>{{ coproprietaire.domicile }}</td>
             </tr>
             <tr>
-                <th>QuotePart</th>
+                <th>Quote-Part</th>
                 <td>{{ coproprietaire.quotePart }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_coproprietaire_index') }}">back to list</a>
+    <a href="{{ path('app_coproprietaire_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_coproprietaire_edit', {'id': coproprietaire.id}) }}">edit</a>
+    <a href="{{ path('app_coproprietaire_edit', {'id': coproprietaire.id}) }}">Editer</a>
 
     {{ include('coproprietaire/_delete_form.html.twig') }}
 {% endblock %}

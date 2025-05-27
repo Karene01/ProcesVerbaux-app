@@ -279,7 +279,7 @@
       <parameter key="main" type="collection">
         <parameter key="items" type="collection">
           <parameter key="assemblee_generale" type="collection">
-            <parameter key="label">Liste des Assemblées</parameter>
+            <parameter key="label">Assemblées Générales</parameter>
             <parameter key="route">app_assemblee_generale_index</parameter>
             <parameter key="is_divider">false</parameter>
             <parameter key="route_parameters" type="collection"/>
@@ -287,7 +287,7 @@
             <parameter key="items" type="collection"/>
           </parameter>
           <parameter key="coprioprietaire" type="collection">
-            <parameter key="label">Liste des Copropriétaires</parameter>
+            <parameter key="label">Copropriétaires</parameter>
             <parameter key="route">app_coproprietaire_index</parameter>
             <parameter key="is_divider">false</parameter>
             <parameter key="route_parameters" type="collection"/>
@@ -295,7 +295,7 @@
             <parameter key="items" type="collection"/>
           </parameter>
           <parameter key="copropriete" type="collection">
-            <parameter key="label">Liste des Copropriétés</parameter>
+            <parameter key="label">Copropriétés</parameter>
             <parameter key="route">app_copropriete_index</parameter>
             <parameter key="is_divider">false</parameter>
             <parameter key="route_parameters" type="collection"/>

@@ -3,15 +3,15 @@ bootstrap_menu:
     main:
       items:
         assemblee_generale:
-          label: 'Liste des Assemblées'
+          label: 'Assemblées Générales'
           route: 'app_assemblee_generale_index'
         
         coprioprietaire:
-          label: 'Liste des Copropriétaires'
+          label: 'Copropriétaires'
           route: 'app_coproprietaire_index'
 
         copropriete:
-          label: 'Liste des Copropriétés'
+          label: 'Copropriétés'
           route: 'app_copropriete_index'
 
     anonymousaccount:

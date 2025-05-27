@@ -3,32 +3,32 @@
 {% block title %}Copropriete{% endblock %}
 
 {% block body %}
-    <h1>Copropriete</h1>
+    <h1>Copropriété</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>Identifiant</th>
                 <td>{{ copropriete.id }}</td>
             </tr>
             <tr>
-                <th>NomCopropriete</th>
+                <th>Nom de la Copropriété</th>
                 <td>{{ copropriete.nomCopropriete }}</td>
             </tr>
             <tr>
-                <th>AdresseCopropriete</th>
+                <th>Addresse de la copropriété</th>
                 <td>{{ copropriete.adresseCopropriete }}</td>
             </tr>
             <tr>
-                <th>TantiemeCopropriete</th>
+                <th>Tantième copropriété</th>
                 <td>{{ copropriete.tantiemeCopropriete }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_copropriete_index') }}">back to list</a>
+    <a href="{{ path('app_copropriete_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_copropriete_edit', {'id': copropriete.id}) }}">edit</a>
+    <a href="{{ path('app_copropriete_edit', {'id': copropriete.id}) }}">Editer</a>
 
     {{ include('copropriete/_delete_form.html.twig') }}
 {% endblock %}

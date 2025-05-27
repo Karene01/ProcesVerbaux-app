@@ -1,149 +1,304 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AssembleeGenerale{% endblock %}
+{% block title %}Assemblée Générale - {{ assemblee_generale.date|date('d/m/Y') }}{% endblock %}
+
 {% block body %}
+<div class="container-fluid">
+    <!-- En-tête avec titre et actions principales -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2 text-primary">
+            <i class="fas fa-users"></i> Assemblée Générale
+        </h1>
+        <div class="btn-group" role="group">
+            <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            <a href="{{ path('app_assemblee_generale_index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+    </div>
 
-    <h1>AssembleeGenerale</h1>
+    <div class="row">
+        <!-- Informations générales -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle"></i> Informations générales
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-5">Identifiant :</dt>
+                        <dd class="col-7"><span class="badge bg-light text-dark">#{{ assemblee_generale.id }}</span></dd>
+                        
+                        <dt class="col-5">Date :</dt>
+                        <dd class="col-7">
+                            <i class="fas fa-calendar text-primary"></i>
+                            {{ assemblee_generale.date ? assemblee_generale.date|date('d/m/Y') : 'Non définie' }}
+                        </dd>
+                        
+                        <dt class="col-5">Heure :</dt>
+                        <dd class="col-7">
+                            <i class="fas fa-clock text-primary"></i>
+                            {{ assemblee_generale.heure ? assemblee_generale.heure|date('H:i') : 'Non définie' }}
+                        </dd>
+                        
+                        <dt class="col-5">Statut :</dt>
+                        <dd class="col-7">
+                            {% if assemblee_generale.ouverte %}
+                                <span class="badge bg-success"><i class="fas fa-play"></i> En cours</span>
+                            {% else %}
+                                <span class="badge bg-secondary"><i class="fas fa-pause"></i> Fermée</span>
+                            {% endif %}
+                        </dd>
+                    </dl>
+                </div>
+            </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ assemblee_generale.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ assemblee_generale.date ? assemblee_generale.date|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Heure</th>
-                <td>{{ assemblee_generale.heure ? assemblee_generale.heure|date('H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <!-- Copropriété -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-building"></i> Copropriété
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0"><strong>{{ copropriete.nomCopropriete }}</strong></p>
+                </div>
+            </div>
 
+            <!-- Actions sur l'assemblée -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="card-title mb-0">
+                        <i class="fas fa-cogs"></i> Gestion de l'assemblée
+                    </h6>
+                </div>
+                <div class="card-body">
+                    {% if not assemblee_generale.ouverte %}
+                        <form method="post" action="{{ path('assemblee_generale_ouvrir', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Débuter cette assemblée ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('ouvrir' ~ assemblee_generale.id) }}">
+                            <button class="btn btn-success w-100 mb-2">
+                                <i class="fas fa-play"></i> Débuter l'assemblée
+                            </button>
+                        </form>
+                    {% else %}
+                        <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
+                            <button class="btn btn-danger w-100 mb-2">
+                                <i class="fas fa-stop"></i> Clôturer l'assemblée
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                    <hr>
+                    <div class="alert alert-warning" role="alert">
+                        {{ include('assemblee_generale/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Contenu principal -->
+        <div class="col-lg-8">
+            <!-- Questions à voter -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-vote-yea"></i> Questions à voter
+                    </h5>
+                    {% if not assemblee_generale.ouverte %}
+                        <a href="{{ path('app_question_a_voter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-dark">
+                            <i class="fas fa-plus"></i> Ajouter
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% set questionsAVoter = assemblee_generale.questions|filter(q => q.questionAVoter is not null) %}
+                    {% if questionsAVoter is empty %}
+                        <p class="text-muted mb-0"><em>Aucune question à voter</em></p>
+                    {% else %}
+                        <div class="list-group list-group-flush">
+                            {% for q in questionsAVoter %}
+                                <div class="list-group-item">
+                                    <i class="fas fa-question-circle text-warning"></i>
+                                    {{ q.questionAVoter.contenu }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
 
-    {% if not assemblee_generale.ouverte %}
-    <form method="post" action="{{ path('assemblee_generale_ouvrir', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Débuter cette assemblée ?');">
-        <input type="hidden" name="_token" value="{{ csrf_token('ouvrir' ~ assemblee_generale.id) }}">
-        <button class="btn btn-success">Débuter l’assemblée</button>
-    </form>
-    {% else %}
-        <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
-            <span class="badge bg-success">Assemblée en cours</span>
-            <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
-            <button class="btn btn-danger">Clôturer l’assemblée</button>
-        </form>
-    {% endif %}
+            <!-- Questions à discuter -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-comments"></i> Questions à discuter
+                    </h5>
+                    <a href="{{ path('app_question_a_discuter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-light">
+                        <i class="fas fa-plus"></i> Ajouter
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% set questionsADiscuter = assemblee_generale.questions|filter(q => q.questionADiscuter is not null) %}
+                    {% if questionsADiscuter is empty %}
+                        <p class="text-muted mb-0"><em>Aucune question à discuter</em></p>
+                    {% else %}
+                        <div class="list-group list-group-flush">
+                            {% for q in questionsADiscuter %}
+                                <div class="list-group-item">
+                                    <i class="fas fa-comment text-info"></i>
+                                    {{ q.questionADiscuter.contenu }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
 
-    <h3>Copropriété</h3>
-    <p>{{ copropriete.nomCopropriete }}</p>
+            <!-- Participants -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-user-friends"></i> Participants
+                    </h5>
+                    <a href="{{ path('app_participation_add_presence', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-light">
+                        <i class="fas fa-user-plus"></i> Ajouter
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if participations is empty %}
+                        <p class="text-muted mb-0"><em>Aucun participant</em></p>
+                    {% else %}
+                        <div class="list-group list-group-flush">
+                            {% for p in participations %}
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="fas fa-user"></i>
+                                        {{ p.participant.nom }} {{ p.participant.prenom }}
+                                    </span>
+                                    {% if p.present %}
+                                        <span class="badge bg-success">Présent</span>
+                                    {% elseif p.mandataire %}
+                                        <span class="badge bg-warning">Représenté par {{ p.mandataire.nom }} {{ p.mandataire.prenom }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Absent (procuration)</span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
 
-    <h3>Questions à voter</h3>
-    <ul>
-        {% set questionsAVoter = assemblee_generale.questions|filter(q => q.questionAVoter is not null) %}
-        {% if questionsAVoter is empty %}
-            <li><em>Aucune question à voter</em></li>
-        {% else %}
-            {% for q in questionsAVoter %}
-                <li>{{ q.questionAVoter.contenu }}</li>
-            {% endfor %}
-        {% endif %}
-    </ul>
-{% if not assemblee_generale.ouverte %}
-    <a href="{{ path('app_question_a_voter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-primary">Ajouter une question à voter</a>
-{% endif %}
+            <!-- Votes et résultats -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-poll"></i> Votes et résultats
+                    </h5>
+                    <div>
+                        {% if assemblee_generale.ouverte %}
+                            <a href="{{ path('app_vote_questions', {'id': assemblee_generale.id}) }}" class="btn btn-sm btn-outline-light me-2">
+                                <i class="fas fa-vote-yea"></i> Accéder aux votes
+                            </a>
+                        {% endif %}
+                        <a href="{{ path('app_vote_list', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-warning">
+                            <i class="fas fa-trash"></i> Gérer
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if not assemblee_generale.ouverte %}
+                        <div class="alert alert-info" role="alert">
+                            <i class="fas fa-info-circle"></i>
+                            Les votes ne sont accessibles qu'après l'ouverture de l'assemblée.
+                        </div>
+                    {% endif %}
 
+                    <!-- Résultats par question -->
+                    {% if questionsAVoter is not empty %}
+                        {% for question in questionsAVoter %}
+                            <div class="mb-4">
+                                <h6 class="fw-bold">{{ question.questionAVoter.contenu }}</h6>
+                                
+                                {% set votesPour = 0 %}
+                                {% set votesContre = 0 %}
+                                {% set votesAbstention = 0 %}
 
-    <h3>Questions à discuter</h3>
-    <ul>
-        {% set questionsADiscuter = assemblee_generale.questions|filter(q => q.questionADiscuter is not null) %}
-        {% if questionsADiscuter is empty %}
-            <li><em>Aucune question à discuter</em></li>
-        {% else %}
-            {% for q in questionsADiscuter %}
-                <li>{{ q.questionADiscuter.contenu }}</li>
-            {% endfor %}
-        {% endif %}
-    </ul>
-<a href="{{ path('app_question_a_discuter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-primary">Ajouter une question à discuter</a>
+                                {% for vote in votes %}
+                                    {% if vote.question.questionAVoter == question.questionAVoter %}
+                                        {% if vote.valeurVote == 'Pour' %}
+                                            {% set votesPour = votesPour + 1 %}
+                                        {% elseif vote.valeurVote == 'Contre' %}
+                                            {% set votesContre = votesContre + 1 %}
+                                        {% elseif vote.valeurVote == 'Abstention' %}
+                                            {% set votesAbstention = votesAbstention + 1 %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
 
+                                <div class="row text-center">
+                                    <div class="col-4">
+                                        <div class="card bg-success text-white">
+                                            <div class="card-body py-2">
+                                                <h5 class="mb-0">{{ votesPour }}</h5>
+                                                <small>Pour</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card bg-danger text-white">
+                                            <div class="card-body py-2">
+                                                <h5 class="mb-0">{{ votesContre }}</h5>
+                                                <small>Contre</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card bg-secondary text-white">
+                                            <div class="card-body py-2">
+                                                <h5 class="mb-0">{{ votesAbstention }}</h5>
+                                                <small>Abstention</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted mb-0"><em>Aucune question à voter.</em></p>
+                    {% endif %}
 
-    <h3>Participants</h3>
-    <ul>
-        {% for p in participations %}
-            <li>
-                {{ p.participant.nom }} {{ p.participant.prenom }}
-                {% if p.present %}
-                    – Présent
-                {% elseif p.mandataire %}
-                    – Représenté par {{ p.mandataire.nom }} {{ p.mandataire.prenom }}
-                {% else %}
-                    – Absent (procuration)
-                {% endif %}
-            </li>
-        {% else %}
-            <li>Aucun participant</li>
-        {% endfor %}
-    </ul>
-
-    <a href="{{ path('app_participation_add_presence', {id: assemblee_generale.id}) }}">Ajouter une présence</a>
-
-   <h3>Votes</h3>
-<ul>
-    {% if votes is not empty %}
-        {% for vote in votes %}
-            <li>
-                {{ vote.participation.participant.nom }} {{ vote.participation.participant.prenom }}
-                – {{ vote.question.questionAVoter.contenu ?? 'Question non disponible' }}
-                – <strong>{{ vote.valeurVote }}</strong>
-            </li>
-        {% endfor %}
-    {% else %}
-        <li><em>Aucun vote enregistré</em></li>
-    {% endif %}
-</ul>
-<a href="{{ path('app_vote_list', {id: assemblee_generale.id}) }}" class="btn btn-warning">Supprimer un vote</a>
-
-{% if assemblee_generale.ouverte %}
-    <a href="{{ path('app_vote_questions', {'id': assemblee_generale.id}) }}" class="btn btn-primary">Accéder aux votes</a>
-{% else %}
-    <span class="text-muted">Les votes ne sont accessibles qu’après l’ouverture de l’assemblée.</span>
-{% endif %}
-
-<h3>Résultats des votes</h3>
-{% for question in questionsAVoter %}
-    <h4>{{ question.questionAVoter.contenu }}</h4>
-    {% set votesPour = 0 %}
-    {% set votesContre = 0 %}
-    {% set votesAbstention = 0 %}
-
-    {% for vote in votes %}
-        {% if vote.question.questionAVoter == question.questionAVoter %}
-            {% if vote.valeurVote == 'Pour' %}
-                {% set votesPour = votesPour + 1 %}
-            {% elseif vote.valeurVote == 'Contre' %}
-                {% set votesContre = votesContre + 1 %}
-            {% elseif vote.valeurVote == 'Abstention' %}
-                {% set votesAbstention = votesAbstention + 1 %}
-            {% endif %}
-        {% endif %}
-    {% endfor %}
-
-    <ul>
-        <li><strong>Pour</strong> : {{ votesPour }}</li>
-        <li><strong>Contre</strong> : {{ votesContre }}</li>
-        <li><strong>Abstention</strong> : {{ votesAbstention }}</li>
-    </ul>
-{% else %}
-    <p>Aucune question à voter.</p>
-{% endfor %}
-
-
-<a href="{{ path('app_assemblee_generale_index') }}">back to list</a>
-
-<a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}">edit</a>
-
-{{ include('assemblee_generale/_delete_form.html.twig') }}
+                    <!-- Liste détaillée des votes -->
+                    {% if votes is not empty %}
+                        <hr>
+                        <h6>Détail des votes :</h6>
+                        <div class="list-group list-group-flush">
+                            {% for vote in votes %}
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <strong>{{ vote.participation.participant.nom }} {{ vote.participation.participant.prenom }}</strong>
+                                        <br>
+                                        <small class="text-muted">{{ vote.question.questionAVoter.contenu ?? 'Question non disponible' }}</small>
+                                    </span>
+                                    {% if vote.valeurVote == 'Pour' %}
+                                        <span class="badge bg-success">{{ vote.valeurVote }}</span>
+                                    {% elseif vote.valeurVote == 'Contre' %}
+                                        <span class="badge bg-danger">{{ vote.valeurVote }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ vote.valeurVote }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

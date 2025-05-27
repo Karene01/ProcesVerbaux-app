@@ -3,14 +3,14 @@
 {% block title %}Vote index{% endblock %}
 
 {% block body %}
-    <h1>Vote index</h1>
+    <h1>Liste des votes</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>ValeurVote</th>
-                <th>actions</th>
+                <th>Identifiants</th>
+                <th>Valeur du vote</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,17 +19,17 @@
                 <td>{{ vote.id }}</td>
                 <td>{{ vote.valeurVote }}</td>
                 <td>
-                    <a href="{{ path('app_vote_show', {'id': vote.id}) }}">show</a>
-                    <a href="{{ path('app_vote_edit', {'id': vote.id}) }}">edit</a>
+                    <a href="{{ path('app_vote_show', {'id': vote.id}) }}">Montrer</a>
+                    <a href="{{ path('app_vote_edit', {'id': vote.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucune donnée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_vote_new') }}">Create new</a>
+    <a href="{{ path('app_vote_new') }}">Créer un nouveau vote</a>
 {% endblock %}

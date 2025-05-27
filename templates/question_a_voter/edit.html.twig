@@ -3,11 +3,11 @@
 {% block title %}Edit QuestionAVoter{% endblock %}
 
 {% block body %}
-    <h1>Edit QuestionAVoter</h1>
+    <h1>Editer la  question à voter</h1>
 
-    {{ include('question_a_voter/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('question_a_voter/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_question_a_voter_index') }}">back to list</a>
+    <a href="{{ path('app_question_a_voter_index') }}">Retour à la liste</a>
 
     {{ include('question_a_voter/_delete_form.html.twig') }}
 {% endblock %}

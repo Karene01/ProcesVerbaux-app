@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class AssembleeGeneraleForm extends AbstractType
 {
@@ -20,7 +21,10 @@ class AssembleeGeneraleForm extends AbstractType
                 'class' => Copropriete::class,
                 'choice_label' => 'id',
             ])
-        ;
+        ->add('ouverte', CheckboxType::class, [
+            'label' => 'Assemblée ouverte',
+            'required' => false,
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

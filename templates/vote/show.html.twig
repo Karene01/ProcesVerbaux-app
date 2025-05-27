@@ -12,15 +12,15 @@
                 <td>{{ vote.id }}</td>
             </tr>
             <tr>
-                <th>ValeurVote</th>
+                <th>Valeur du vote</th>
                 <td>{{ vote.valeurVote }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_vote_index') }}">back to list</a>
+    <a href="{{ path('app_vote_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_vote_edit', {'id': vote.id}) }}">edit</a>
+    <a href="{{ path('app_vote_edit', {'id': vote.id}) }}">Modifier</a>
 
     {{ include('vote/_delete_form.html.twig') }}
 {% endblock %}

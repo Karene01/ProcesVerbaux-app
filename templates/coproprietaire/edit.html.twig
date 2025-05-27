@@ -3,11 +3,11 @@
 {% block title %}Edit Coproprietaire{% endblock %}
 
 {% block body %}
-    <h1>Edit Coproprietaire</h1>
+    <h1>Editer le Copropriétaire</h1>
 
-    {{ include('coproprietaire/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('coproprietaire/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_coproprietaire_index') }}">back to list</a>
+    <a href="{{ path('app_coproprietaire_index') }}">Retour à la liste</a>
 
     {{ include('coproprietaire/_delete_form.html.twig') }}
 {% endblock %}
