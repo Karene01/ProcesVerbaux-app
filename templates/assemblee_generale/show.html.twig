@@ -6,11 +6,11 @@
 <div class="container-fluid">
     <!-- En-tête avec titre et actions principales -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h2 text-primary">
+        <h1 class="h2">
             <i class="fas fa-users"></i> Assemblée Générale
         </h1>
         <div class="btn-group" role="group">
-            <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}" class="btn btn-warning">
+            <a href="{{ path('app_assemblee_generale_edit', {'id': assemblee_generale.id}) }}" class="btn btn-outline-secondary">
                 <i class="fas fa-edit"></i> Modifier
             </a>
             <a href="{{ path('app_assemblee_generale_index') }}" class="btn btn-secondary">
@@ -23,7 +23,7 @@
         <!-- Informations générales -->
         <div class="col-lg-4">
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-info-circle"></i> Informations générales
                     </h5>
@@ -35,13 +35,13 @@
                         
                         <dt class="col-5">Date :</dt>
                         <dd class="col-7">
-                            <i class="fas fa-calendar text-primary"></i>
+                            <i class="fas fa-calendar"></i>
                             {{ assemblee_generale.date ? assemblee_generale.date|date('d/m/Y') : 'Non définie' }}
                         </dd>
                         
                         <dt class="col-5">Heure :</dt>
                         <dd class="col-7">
-                            <i class="fas fa-clock text-primary"></i>
+                            <i class="fas fa-clock"></i>
                             {{ assemblee_generale.heure ? assemblee_generale.heure|date('H:i') : 'Non définie' }}
                         </dd>
                         
@@ -59,7 +59,7 @@
 
             <!-- Copropriété -->
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-info text-white">
+                <div class="card-header">
                     <h6 class="card-title mb-0">
                         <i class="fas fa-building"></i> Copropriété
                     </h6>
@@ -71,7 +71,7 @@
 
             <!-- Actions sur l'assemblée -->
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-secondary text-white">
+                <div class="card-header">
                     <h6 class="card-title mb-0">
                         <i class="fas fa-cogs"></i> Gestion de l'assemblée
                     </h6>
@@ -94,7 +94,7 @@
                     {% endif %}
                     
                     <hr>
-                    <div class="alert alert-warning" role="alert">
+                    <div class="alert alert-light border" role="alert">
                         {{ include('assemblee_generale/_delete_form.html.twig') }}
                     </div>
                 </div>
@@ -105,12 +105,12 @@
         <div class="col-lg-8">
             <!-- Questions à voter -->
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-vote-yea"></i> Questions à voter
                     </h5>
                     {% if not assemblee_generale.ouverte %}
-                        <a href="{{ path('app_question_a_voter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-dark">
+                        <a href="{{ path('app_question_a_voter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
                             <i class="fas fa-plus"></i> Ajouter
                         </a>
                     {% endif %}
@@ -123,7 +123,7 @@
                         <div class="list-group list-group-flush">
                             {% for q in questionsAVoter %}
                                 <div class="list-group-item">
-                                    <i class="fas fa-question-circle text-warning"></i>
+                                    <i class="fas fa-question-circle"></i>
                                     {{ q.questionAVoter.contenu }}
                                 </div>
                             {% endfor %}
@@ -134,11 +134,11 @@
 
             <!-- Questions à discuter -->
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-comments"></i> Questions à discuter
                     </h5>
-                    <a href="{{ path('app_question_a_discuter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-light">
+                    <a href="{{ path('app_question_a_discuter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
                         <i class="fas fa-plus"></i> Ajouter
                     </a>
                 </div>
@@ -150,7 +150,7 @@
                         <div class="list-group list-group-flush">
                             {% for q in questionsADiscuter %}
                                 <div class="list-group-item">
-                                    <i class="fas fa-comment text-info"></i>
+                                    <i class="fas fa-comment"></i>
                                     {{ q.questionADiscuter.contenu }}
                                 </div>
                             {% endfor %}
@@ -161,11 +161,11 @@
 
             <!-- Participants -->
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-user-friends"></i> Participants
                     </h5>
-                    <a href="{{ path('app_participation_add_presence', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-light">
+                    <a href="{{ path('app_participation_add_presence', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
                         <i class="fas fa-user-plus"></i> Ajouter
                     </a>
                 </div>
@@ -183,7 +183,7 @@
                                     {% if p.present %}
                                         <span class="badge bg-success">Présent</span>
                                     {% elseif p.mandataire %}
-                                        <span class="badge bg-warning">Représenté par {{ p.mandataire.nom }} {{ p.mandataire.prenom }}</span>
+                                        <span class="badge bg-secondary">Représenté par {{ p.mandataire.nom }} {{ p.mandataire.prenom }}</span>
                                     {% else %}
                                         <span class="badge bg-secondary">Absent (procuration)</span>
                                     {% endif %}
@@ -196,24 +196,24 @@
 
             <!-- Votes et résultats -->
             <div class="card shadow-sm mb-4">
-                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">
                         <i class="fas fa-poll"></i> Votes et résultats
                     </h5>
                     <div>
                         {% if assemblee_generale.ouverte %}
-                            <a href="{{ path('app_vote_questions', {'id': assemblee_generale.id}) }}" class="btn btn-sm btn-outline-light me-2">
+                            <a href="{{ path('app_vote_questions', {'id': assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary me-2">
                                 <i class="fas fa-vote-yea"></i> Accéder aux votes
                             </a>
                         {% endif %}
-                        <a href="{{ path('app_vote_list', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-warning">
-                            <i class="fas fa-trash"></i> Gérer
+                        <a href="{{ path('app_vote_list', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-cog"></i> Gérer
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     {% if not assemblee_generale.ouverte %}
-                        <div class="alert alert-info" role="alert">
+                        <div class="alert alert-light border" role="alert">
                             <i class="fas fa-info-circle"></i>
                             Les votes ne sont accessibles qu'après l'ouverture de l'assemblée.
                         </div>
@@ -243,25 +243,25 @@
 
                                 <div class="row text-center">
                                     <div class="col-4">
-                                        <div class="card bg-success text-white">
+                                        <div class="card border">
                                             <div class="card-body py-2">
-                                                <h5 class="mb-0">{{ votesPour }}</h5>
+                                                <h5 class="mb-0 text-success">{{ votesPour }}</h5>
                                                 <small>Pour</small>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="card bg-danger text-white">
+                                        <div class="card border">
                                             <div class="card-body py-2">
-                                                <h5 class="mb-0">{{ votesContre }}</h5>
+                                                <h5 class="mb-0 text-danger">{{ votesContre }}</h5>
                                                 <small>Contre</small>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
-                                        <div class="card bg-secondary text-white">
+                                        <div class="card border">
                                             <div class="card-body py-2">
-                                                <h5 class="mb-0">{{ votesAbstention }}</h5>
+                                                <h5 class="mb-0 text-muted">{{ votesAbstention }}</h5>
                                                 <small>Abstention</small>
                                             </div>
                                         </div>
