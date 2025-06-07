@@ -29,6 +29,9 @@ class AssembleeGenerale
 
     #[ORM\Column]
     private bool $ouverte = false;
+   
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $terminee = false;
 
     #[ORM\OneToMany(mappedBy: 'assembleeGenerale', targetEntity: Question::class, orphanRemoval: true)]
 private Collection $questions;
@@ -139,6 +142,18 @@ public function addQuestion(Question $question): self
         return $this;
     }
 
+
+
+public function isTerminee(): bool
+{
+    return $this->terminee;
+}
+
+public function setTerminee(bool $terminee): self
+{
+    $this->terminee = $terminee;
+    return $this;
+}
 
 
 

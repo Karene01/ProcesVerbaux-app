@@ -47,11 +47,14 @@
                         
                         <dt class="col-5">Statut :</dt>
                         <dd class="col-7">
-                            {% if assemblee_generale.ouverte %}
+                            {% if assemblee_generale.terminee %}
+                                <span class="badge bg-dark"><i class="fas fa-check"></i> Terminée</span>
+                            {% elseif assemblee_generale.ouverte %}
                                 <span class="badge bg-success"><i class="fas fa-play"></i> En cours</span>
                             {% else %}
-                                <span class="badge bg-secondary"><i class="fas fa-pause"></i> Fermée</span>
+                                <span class="badge bg-secondary"><i class="fas fa-hourglass-start"></i> Non commencée</span>
                             {% endif %}
+
                         </dd>
                     </dl>
                 </div>
@@ -77,22 +80,26 @@
                     </h6>
                 </div>
                 <div class="card-body">
-                    {% if not assemblee_generale.ouverte %}
-                        <form method="post" action="{{ path('assemblee_generale_ouvrir', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Débuter cette assemblée ?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('ouvrir' ~ assemblee_generale.id) }}">
-                            <button class="btn btn-success w-100 mb-2">
-                                <i class="fas fa-play"></i> Débuter l'assemblée
-                            </button>
-                        </form>
-                    {% else %}
-                        <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
-                            <button class="btn btn-danger w-100 mb-2">
-                                <i class="fas fa-stop"></i> Clôturer l'assemblée
-                            </button>
-                        </form>
-                    {% endif %}
-                    
+                    {% if assemblee_generale.terminee %}
+    <div class="alert alert-info mb-2">
+        <i class="fas fa-info-circle"></i> Cette assemblée est terminée. Aucune action n'est possible.
+    </div>
+        {% elseif not assemblee_generale.ouverte %}
+            <form method="post" action="{{ path('assemblee_generale_ouvrir', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Débuter cette assemblée ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('ouvrir' ~ assemblee_generale.id) }}">
+                <button class="btn btn-success w-100 mb-2">
+                    <i class="fas fa-play"></i> Débuter l'assemblée
+                </button>
+            </form>
+        {% else %}
+            <form method="post" action="{{ path('assemblee_generale_clore', {'id': assemblee_generale.id}) }}" onsubmit="return confirm('Clôturer cette assemblée ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('clore' ~ assemblee_generale.id) }}">
+                <button class="btn btn-danger w-100 mb-2">
+                    <i class="fas fa-stop"></i> Clôturer l'assemblée
+                </button>
+            </form>
+        {% endif %}
+
                     <hr>
                     <div class="alert alert-light border" role="alert">
                         {{ include('assemblee_generale/_delete_form.html.twig') }}
@@ -132,32 +139,19 @@
                 </div>
             </div>
 
-            <!-- Questions à discuter -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">
-                        <i class="fas fa-comments"></i> Questions à discuter
-                    </h5>
-                    <a href="{{ path('app_question_a_discuter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
-                        <i class="fas fa-plus"></i> Ajouter
-                    </a>
-                </div>
-                <div class="card-body">
-                    {% set questionsADiscuter = assemblee_generale.questions|filter(q => q.questionADiscuter is not null) %}
-                    {% if questionsADiscuter is empty %}
-                        <p class="text-muted mb-0"><em>Aucune question à discuter</em></p>
-                    {% else %}
-                        <div class="list-group list-group-flush">
-                            {% for q in questionsADiscuter %}
-                                <div class="list-group-item">
-                                    <i class="fas fa-comment"></i>
-                                    {{ q.questionADiscuter.contenu }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
+           <!-- Questions à discuter -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">
+                <i class="fas fa-comments"></i> Questions à discuter
+            </h5>
+            {% if assemblee_generale.ouverte %}
+                <a href="{{ path('app_question_a_discuter_new_for_ag', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-plus"></i> Ajouter
+                </a>
+            {% endif %}
+        </div>
+
 
             <!-- Participants -->
             <div class="card shadow-sm mb-4">

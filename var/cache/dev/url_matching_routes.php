@@ -52,95 +52,94 @@ return [
                     .'|ssemblee/generale/([^/]++)(?'
                         .'|(*:99)'
                         .'|/(?'
-                            .'|edit(*:114)'
-                            .'|ouvrir(*:128)'
-                            .'|clore(*:141)'
+                            .'|ouvrir(*:116)'
+                            .'|clore(*:129)'
+                            .'|edit(*:141)'
                         .')'
-                        .'|(*:150)'
                     .')'
                 .')'
                 .'|/_(?'
-                    .'|error/(\\d+)(?:\\.([^/]++))?(*:191)'
-                    .'|wdt/([^/]++)(*:211)'
+                    .'|error/(\\d+)(?:\\.([^/]++))?(*:183)'
+                    .'|wdt/([^/]++)(*:203)'
                     .'|profiler/(?'
-                        .'|font/([^/\\.]++)\\.woff2(*:253)'
+                        .'|font/([^/\\.]++)\\.woff2(*:245)'
                         .'|([^/]++)(?'
                             .'|/(?'
-                                .'|search/results(*:290)'
-                                .'|router(*:304)'
+                                .'|search/results(*:282)'
+                                .'|router(*:296)'
                                 .'|exception(?'
-                                    .'|(*:324)'
-                                    .'|\\.css(*:337)'
+                                    .'|(*:316)'
+                                    .'|\\.css(*:329)'
                                 .')'
                             .')'
-                            .'|(*:347)'
+                            .'|(*:339)'
                         .')'
                     .')'
                 .')'
                 .'|/copropriet(?'
                     .'|aire/([^/]++)(?'
-                        .'|(*:388)'
-                        .'|/edit(*:401)'
-                        .'|(*:409)'
+                        .'|(*:380)'
+                        .'|/edit(*:393)'
+                        .'|(*:401)'
                     .')'
                     .'|e/([^/]++)(?'
-                        .'|(*:431)'
-                        .'|/edit(*:444)'
-                        .'|(*:452)'
+                        .'|(*:423)'
+                        .'|/edit(*:436)'
+                        .'|(*:444)'
                     .')'
                 .')'
                 .'|/participation/(?'
                     .'|([^/]++)(?'
-                        .'|(*:491)'
-                        .'|/edit(*:504)'
-                        .'|(*:512)'
+                        .'|(*:483)'
+                        .'|/edit(*:496)'
+                        .'|(*:504)'
                     .')'
                     .'|assemblee/([^/]++)/(?'
                         .'|p(?'
-                            .'|resence/add(*:558)'
-                            .'|articipations(*:579)'
+                            .'|resence/add(*:550)'
+                            .'|articipations(*:571)'
                         .')'
-                        .'|representation/add(*:606)'
+                        .'|representation/add(*:598)'
                     .')'
                 .')'
                 .'|/question/(?'
                     .'|a/(?'
                         .'|discuter/(?'
                             .'|([^/]++)(?'
-                                .'|(*:657)'
-                                .'|/edit(*:670)'
-                                .'|(*:678)'
+                                .'|(*:649)'
+                                .'|/edit(*:662)'
+                                .'|(*:670)'
                             .')'
-                            .'|assemblee/([^/]++)/question\\-a\\-discuter/add(*:731)'
+                            .'|assemblee/([^/]++)/question\\-a\\-discuter/add(*:723)'
                         .')'
                         .'|voter/(?'
                             .'|([^/]++)(?'
-                                .'|(*:760)'
-                                .'|/edit(*:773)'
-                                .'|(*:781)'
+                                .'|(*:752)'
+                                .'|/edit(*:765)'
+                                .'|(*:773)'
                             .')'
-                            .'|assemblee/([^/]++)/question\\-a\\-voter/add(*:831)'
+                            .'|assemblee/([^/]++)/question\\-a\\-voter/add(*:823)'
                         .')'
                     .')'
                     .'|([^/]++)(?'
-                        .'|(*:852)'
-                        .'|/edit(*:865)'
-                        .'|(*:873)'
+                        .'|(*:844)'
+                        .'|/edit(*:857)'
+                        .'|(*:865)'
                     .')'
                 .')'
                 .'|/vote/(?'
                     .'|([^/]++)(?'
-                        .'|(*:903)'
-                        .'|/edit(*:916)'
-                        .'|(*:924)'
+                        .'|(*:895)'
+                        .'|/edit(*:908)'
+                        .'|(*:916)'
                     .')'
                     .'|vote/(?'
                         .'|assemblee/([^/]++)/(?'
-                            .'|questions(*:972)'
-                            .'|liste(*:985)'
+                            .'|questions(*:964)'
+                            .'|liste(*:977)'
                         .')'
-                        .'|vote/([^/]++)/([^/]++)/submit(*:1023)'
-                        .'|([^/]++)/supprimer(*:1050)'
+                        .'|vote/([^/]++)/([^/]++)/submit(*:1015)'
+                        .'|([^/]++)/supprimer(*:1042)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -149,49 +148,51 @@ return [
         41 => [[['_route' => '_todo_edit', '_locale' => 'en', '_controller' => 'App\\Controller\\Admin\\TodoCrudController::edit', 'routeCreatedByEasyAdmin' => true, 'dashboardControllerFqcn' => 'App\\Controller\\Admin\\DashboardController', 'crudControllerFqcn' => 'App\\Controller\\Admin\\TodoCrudController', 'crudAction' => 'edit'], ['entityId'], ['GET' => 0, 'POST' => 1, 'PATCH' => 2], null, false, false, null]],
         54 => [[['_route' => '_todo_delete', '_locale' => 'en', '_controller' => 'App\\Controller\\Admin\\TodoCrudController::delete', 'routeCreatedByEasyAdmin' => true, 'dashboardControllerFqcn' => 'App\\Controller\\Admin\\DashboardController', 'crudControllerFqcn' => 'App\\Controller\\Admin\\TodoCrudController', 'crudAction' => 'delete'], ['entityId'], ['POST' => 0], null, false, false, null]],
         62 => [[['_route' => '_todo_detail', '_locale' => 'en', '_controller' => 'App\\Controller\\Admin\\TodoCrudController::detail', 'routeCreatedByEasyAdmin' => true, 'dashboardControllerFqcn' => 'App\\Controller\\Admin\\DashboardController', 'crudControllerFqcn' => 'App\\Controller\\Admin\\TodoCrudController', 'crudAction' => 'detail'], ['entityId'], ['GET' => 0], null, false, true, null]],
-        99 => [[['_route' => 'app_assemblee_generale_show', '_controller' => 'App\\Controller\\AssembleeGeneraleController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        114 => [[['_route' => 'app_assemblee_generale_edit', '_controller' => 'App\\Controller\\AssembleeGeneraleController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        128 => [[['_route' => 'assemblee_generale_ouvrir', '_controller' => 'App\\Controller\\AssembleeGeneraleController::ouvrir'], ['id'], ['POST' => 0], null, false, false, null]],
-        141 => [[['_route' => 'assemblee_generale_clore', '_controller' => 'App\\Controller\\AssembleeGeneraleController::clore'], ['id'], ['POST' => 0], null, false, false, null]],
-        150 => [[['_route' => 'app_assemblee_generale_delete', '_controller' => 'App\\Controller\\AssembleeGeneraleController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        191 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        211 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
-        253 => [[['_route' => '_profiler_font', '_controller' => 'web_profiler.controller.profiler::fontAction'], ['fontName'], null, null, false, false, null]],
-        290 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
-        304 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
-        324 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
-        337 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        347 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        388 => [[['_route' => 'app_coproprietaire_show', '_controller' => 'App\\Controller\\CoproprietaireController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        401 => [[['_route' => 'app_coproprietaire_edit', '_controller' => 'App\\Controller\\CoproprietaireController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        409 => [[['_route' => 'app_coproprietaire_delete', '_controller' => 'App\\Controller\\CoproprietaireController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        431 => [[['_route' => 'app_copropriete_show', '_controller' => 'App\\Controller\\CoproprieteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        444 => [[['_route' => 'app_copropriete_edit', '_controller' => 'App\\Controller\\CoproprieteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        452 => [[['_route' => 'app_copropriete_delete', '_controller' => 'App\\Controller\\CoproprieteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        491 => [[['_route' => 'app_participation_show', '_controller' => 'App\\Controller\\ParticipationController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        504 => [[['_route' => 'app_participation_edit', '_controller' => 'App\\Controller\\ParticipationController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        512 => [[['_route' => 'app_participation_delete', '_controller' => 'App\\Controller\\ParticipationController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        558 => [[['_route' => 'app_participation_add_presence', '_controller' => 'App\\Controller\\ParticipationController::addPresence'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        579 => [[['_route' => 'participation_list_by_ag', '_controller' => 'App\\Controller\\ParticipationController::listByAG'], ['id'], ['GET' => 0], null, false, false, null]],
-        606 => [[['_route' => 'participation_add_representant', '_controller' => 'App\\Controller\\ParticipationController::addRepresentant'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        657 => [[['_route' => 'app_question_a_discuter_show', '_controller' => 'App\\Controller\\QuestionADiscuterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        670 => [[['_route' => 'app_question_a_discuter_edit', '_controller' => 'App\\Controller\\QuestionADiscuterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        678 => [[['_route' => 'app_question_a_discuter_delete', '_controller' => 'App\\Controller\\QuestionADiscuterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        731 => [[['_route' => 'app_question_a_discuter_new_for_ag', '_controller' => 'App\\Controller\\QuestionADiscuterController::newForAG'], ['id'], null, null, false, false, null]],
-        760 => [[['_route' => 'app_question_a_voter_show', '_controller' => 'App\\Controller\\QuestionAVoterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        773 => [[['_route' => 'app_question_a_voter_edit', '_controller' => 'App\\Controller\\QuestionAVoterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        781 => [[['_route' => 'app_question_a_voter_delete', '_controller' => 'App\\Controller\\QuestionAVoterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        831 => [[['_route' => 'app_question_a_voter_new_for_ag', '_controller' => 'App\\Controller\\QuestionAVoterController::newForAG'], ['id'], null, null, false, false, null]],
-        852 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        865 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        873 => [[['_route' => 'app_question_delete', '_controller' => 'App\\Controller\\QuestionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        903 => [[['_route' => 'app_vote_show', '_controller' => 'App\\Controller\\VoteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        916 => [[['_route' => 'app_vote_edit', '_controller' => 'App\\Controller\\VoteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        924 => [[['_route' => 'app_vote_delete', '_controller' => 'App\\Controller\\VoteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        972 => [[['_route' => 'app_vote_questions', '_controller' => 'App\\Controller\\VoteController::questions'], ['id'], null, null, false, false, null]],
-        985 => [[['_route' => 'app_vote_list', '_controller' => 'App\\Controller\\VoteController::listVotes'], ['id'], ['GET' => 0], null, false, false, null]],
-        1023 => [[['_route' => 'app_vote_submit', '_controller' => 'App\\Controller\\VoteController::submit'], ['questionId', 'participationId'], ['POST' => 0], null, false, false, null]],
-        1050 => [
+        99 => [
+            [['_route' => 'app_assemblee_generale_show', '_controller' => 'App\\Controller\\AssembleeGeneraleController::show'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'app_assemblee_generale_delete', '_controller' => 'App\\Controller\\AssembleeGeneraleController::delete'], ['id'], ['POST' => 0], null, false, true, null],
+        ],
+        116 => [[['_route' => 'assemblee_generale_ouvrir', '_controller' => 'App\\Controller\\AssembleeGeneraleController::ouvrir'], ['id'], ['POST' => 0], null, false, false, null]],
+        129 => [[['_route' => 'assemblee_generale_clore', '_controller' => 'App\\Controller\\AssembleeGeneraleController::clore'], ['id'], ['POST' => 0], null, false, false, null]],
+        141 => [[['_route' => 'app_assemblee_generale_edit', '_controller' => 'App\\Controller\\AssembleeGeneraleController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        183 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+        203 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
+        245 => [[['_route' => '_profiler_font', '_controller' => 'web_profiler.controller.profiler::fontAction'], ['fontName'], null, null, false, false, null]],
+        282 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
+        296 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
+        316 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
+        329 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
+        339 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+        380 => [[['_route' => 'app_coproprietaire_show', '_controller' => 'App\\Controller\\CoproprietaireController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        393 => [[['_route' => 'app_coproprietaire_edit', '_controller' => 'App\\Controller\\CoproprietaireController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        401 => [[['_route' => 'app_coproprietaire_delete', '_controller' => 'App\\Controller\\CoproprietaireController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        423 => [[['_route' => 'app_copropriete_show', '_controller' => 'App\\Controller\\CoproprieteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        436 => [[['_route' => 'app_copropriete_edit', '_controller' => 'App\\Controller\\CoproprieteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        444 => [[['_route' => 'app_copropriete_delete', '_controller' => 'App\\Controller\\CoproprieteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        483 => [[['_route' => 'app_participation_show', '_controller' => 'App\\Controller\\ParticipationController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        496 => [[['_route' => 'app_participation_edit', '_controller' => 'App\\Controller\\ParticipationController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        504 => [[['_route' => 'app_participation_delete', '_controller' => 'App\\Controller\\ParticipationController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        550 => [[['_route' => 'app_participation_add_presence', '_controller' => 'App\\Controller\\ParticipationController::addPresence'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        571 => [[['_route' => 'participation_list_by_ag', '_controller' => 'App\\Controller\\ParticipationController::listByAG'], ['id'], ['GET' => 0], null, false, false, null]],
+        598 => [[['_route' => 'participation_add_representant', '_controller' => 'App\\Controller\\ParticipationController::addRepresentant'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        649 => [[['_route' => 'app_question_a_discuter_show', '_controller' => 'App\\Controller\\QuestionADiscuterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        662 => [[['_route' => 'app_question_a_discuter_edit', '_controller' => 'App\\Controller\\QuestionADiscuterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        670 => [[['_route' => 'app_question_a_discuter_delete', '_controller' => 'App\\Controller\\QuestionADiscuterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        723 => [[['_route' => 'app_question_a_discuter_new_for_ag', '_controller' => 'App\\Controller\\QuestionADiscuterController::newForAG'], ['id'], null, null, false, false, null]],
+        752 => [[['_route' => 'app_question_a_voter_show', '_controller' => 'App\\Controller\\QuestionAVoterController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        765 => [[['_route' => 'app_question_a_voter_edit', '_controller' => 'App\\Controller\\QuestionAVoterController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        773 => [[['_route' => 'app_question_a_voter_delete', '_controller' => 'App\\Controller\\QuestionAVoterController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        823 => [[['_route' => 'app_question_a_voter_new_for_ag', '_controller' => 'App\\Controller\\QuestionAVoterController::newForAG'], ['id'], null, null, false, false, null]],
+        844 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        857 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        865 => [[['_route' => 'app_question_delete', '_controller' => 'App\\Controller\\QuestionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        895 => [[['_route' => 'app_vote_show', '_controller' => 'App\\Controller\\VoteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        908 => [[['_route' => 'app_vote_edit', '_controller' => 'App\\Controller\\VoteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        916 => [[['_route' => 'app_vote_delete', '_controller' => 'App\\Controller\\VoteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        964 => [[['_route' => 'app_vote_questions', '_controller' => 'App\\Controller\\VoteController::questions'], ['id'], null, null, false, false, null]],
+        977 => [[['_route' => 'app_vote_list', '_controller' => 'App\\Controller\\VoteController::listVotes'], ['id'], ['GET' => 0], null, false, false, null]],
+        1015 => [[['_route' => 'app_vote_submit', '_controller' => 'App\\Controller\\VoteController::submit'], ['questionId', 'participationId'], ['POST' => 0], null, false, false, null]],
+        1042 => [
             [['_route' => 'app_vote_delete_custom', '_controller' => 'App\\Controller\\VoteController::deleteVoteManuellement'], ['id'], ['POST' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
