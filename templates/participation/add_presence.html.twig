@@ -68,25 +68,30 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const presentCheckbox = document.querySelector('#participation_present');
-        const mandataireField = document.querySelector('#participation_mandataire');
-        const mandataireContainer = document.querySelector('#mandataire-field');
+    const participantSelect = document.querySelector('.select-participant');
+    const presentCheckbox = document.querySelector('.present-checkbox');
+    const mandataireSelect = document.querySelector('.select-mandataire');
+    const mandataireContainer = document.querySelector('#mandataire-field');
 
-        function toggleMandataire() {
-            if (presentCheckbox.checked) {
-                mandataireField.value = '';
-                mandataireField.disabled = true;
-                mandataireContainer.style.opacity = '0.5';
-                mandataireContainer.style.pointerEvents = 'none';
-            } else {
-                mandataireField.disabled = false;
-                mandataireContainer.style.opacity = '1';
-                mandataireContainer.style.pointerEvents = 'auto';
-            }
+    function updateMandataireField() {
+        if (participantSelect.value && !presentCheckbox.checked) {
+            mandataireSelect.disabled = false;
+            mandataireContainer.style.opacity = '1';
+            mandataireContainer.style.pointerEvents = 'auto';
+        } else {
+            mandataireSelect.value = '';
+            mandataireSelect.disabled = true;
+            mandataireContainer.style.opacity = '0.5';
+            mandataireContainer.style.pointerEvents = 'none';
         }
+    }
 
-        presentCheckbox.addEventListener('change', toggleMandataire);
-        toggleMandataire();
-    });
+    if (participantSelect && presentCheckbox && mandataireSelect) {
+        participantSelect.addEventListener('change', updateMandataireField);
+        presentCheckbox.addEventListener('change', updateMandataireField);
+        updateMandataireField(); // initial
+    }
+});
+
 </script>
 {% endblock %}

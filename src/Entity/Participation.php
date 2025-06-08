@@ -97,8 +97,27 @@ class Participation
 #[Assert\Callback]
 public function validateParticipation(ExecutionContextInterface $context): void
 {
-    if ($this->present && $this->mandataire !== null) {
-        $context->buildViolation('Un participant présent ne peut pas avoir de mandataire')
+    $participant = $this->getParticipant();
+    $mandataire = $this->getMandataire();
+    $present = $this->isPresent(); // ou getPresent() selon ta méthode
+
+    // Ne peut pas se représenter lui-même
+    if ($participant && $mandataire && $participant === $mandataire) {
+        $context->buildViolation('Un copropriétaire ne peut pas se représenter lui-même.')
+            ->atPath('mandataire')
+            ->addViolation();
+    }
+
+    // Si absent, un mandataire est requis
+    if (!$present && $mandataire === null) {
+        $context->buildViolation('Un mandataire doit être désigné si le copropriétaire est absent.')
+            ->atPath('mandataire')
+            ->addViolation();
+    }
+
+    // Si présent, un mandataire ne doit pas être renseigné
+    if ($present && $mandataire !== null) {
+        $context->buildViolation('Un copropriétaire présent ne peut pas avoir de mandataire.')
             ->atPath('mandataire')
             ->addViolation();
     }

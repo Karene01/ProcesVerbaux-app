@@ -37,15 +37,14 @@
                                 {{ assemblee_generale.heure ? assemblee_generale.heure|date('H:i') : 'Non définie' }}
                             </td>
                             <td>
-                                {% if assemblee_generale.ouverte %}
-                                    <span class="badge bg-success">
-                                        <i class="fas fa-play"></i> En cours
-                                    </span>
+                                {% if assemblee_generale.terminee %}
+                                    <span class="badge bg-dark">Terminée</span>
+                                {% elseif assemblee_generale.ouverte %}
+                                    <span class="badge bg-success">En cours</span>
                                 {% else %}
-                                    <span class="badge bg-secondary">
-                                        <i class="fas fa-pause"></i> Fermée
-                                    </span>
+                                    <span class="badge bg-secondary">Non commencée</span>
                                 {% endif %}
+
                             </td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Actions">

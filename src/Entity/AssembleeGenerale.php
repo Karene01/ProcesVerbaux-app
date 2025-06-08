@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
+
 #[ORM\Entity]
 #[ORM\Table(name: "ASSEMBLEE_GENERALE")]
 class AssembleeGenerale
@@ -16,12 +17,18 @@ class AssembleeGenerale
     #[ORM\Column(name: "id_assemblee_generale", type: "integer")]
     private ?int $id = null;
 
-    #[ORM\Column(name: "date_assemblee_generale", type: "datetime")]
+    #[ORM\Column(name: "date_assemblee_generale", type: "datetime", nullable: true)]
     private ?\DateTimeInterface $date = null;
 
 
-    #[ORM\Column(name: "heure_assemblee_generale", type: "time")]
+    #[ORM\Column(name: "heure_assemblee_generale", type: "time", nullable: true)]
     private ?\DateTimeInterface $heure = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $dateCommencement = null;
+
+
+
 
     #[ORM\ManyToOne(targetEntity: Copropriete::class)]
     #[ORM\JoinColumn(name: "id_copropriete", referencedColumnName: "id_copropriete")]
@@ -66,7 +73,7 @@ public function getDate(): ?\DateTimeInterface
     return $this->date;
 }
 
-public function setDate(\DateTimeInterface $date): static
+public function setDate(\DateTimeInterface $date): self
 {
     $this->date = $date;
     return $this;
@@ -77,7 +84,7 @@ public function getHeure(): ?\DateTimeInterface
     return $this->heure;
 }
 
-public function setHeure(\DateTimeInterface $heure): static
+public function setHeure(\DateTimeInterface $heure): self
 {
     $this->heure = $heure;
     return $this;
@@ -155,6 +162,31 @@ public function setTerminee(bool $terminee): self
     return $this;
 }
 
+public function getDateCommencement(): ?\DateTimeInterface
+{
+    return $this->dateCommencement;
+}
 
+public function setDateCommencement(?\DateTimeInterface $dateCommencement): self
+{
+    $this->dateCommencement = $dateCommencement;
+    return $this;
+}
+/*
+#[ORM\ManyToOne(targetEntity: AssembleeGenerale::class, inversedBy: 'participations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?AssembleeGenerale $assembleeGenerale = null;
+
+    public function getAssembleeGenerale(): ?AssembleeGenerale
+    {
+        return $this->assembleeGenerale;
+    }
+
+    public function setAssembleeGenerale(?AssembleeGenerale $ag): self
+    {
+        $this->assembleeGenerale = $ag;
+        return $this;
+    }
+*/
 
 }

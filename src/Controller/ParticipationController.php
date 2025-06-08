@@ -26,25 +26,32 @@ final class ParticipationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $participation = new Participation();
-        $form = $this->createForm(ParticipationForm::class, $participation);
-        $form->handleRequest($request);
+  #[Route('/new', name: 'app_participation_new', methods: ['GET', 'POST'])]
+public function new(Request $request, EntityManagerInterface $entityManager): Response
+{
+    $participation = new Participation();
+    $form = $this->createForm(ParticipationForm::class, $participation);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($participation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Vérifications supplémentaires
+        if ($participation->isPresent() && $participation->getMandataire()) {
+            $this->addFlash('error', 'Un participant présent ne peut pas avoir de mandataire.');
+            return $this->redirectToRoute('app_participation_new');
         }
 
-        return $this->render('participation/new.html.twig', [
-            'participation' => $participation,
-            'form' => $form,
-        ]);
+        $entityManager->persist($participation);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Participation créée avec succès.');
+        return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('participation/new.html.twig', [
+        'participation' => $participation,
+        'form' => $form,
+    ]);
+}
 
     #[Route('/{id}', name: 'app_participation_show', methods: ['GET'])]
     public function show(Participation $participation): Response
@@ -54,23 +61,34 @@ final class ParticipationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_participation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ParticipationForm::class, $participation);
-        $form->handleRequest($request);
+#[Route('/{id}/edit', name: 'app_participation_edit', methods: ['GET', 'POST'])]
+public function edit(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(ParticipationForm::class, $participation, [
+        'assemblee' => $participation->getAssembleeGenerale(),
+        'participant' => $participation->getParticipant(),
+    ]);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
+    if ($form->isSubmitted() && $form->isValid()) {
+        if ($participation->isPresent() && $participation->getMandataire()) {
+            $this->addFlash('error', 'Un participant présent ne peut pas avoir de mandataire.');
+            return $this->redirectToRoute('app_participation_edit', ['id' => $participation->getId()]);
         }
 
-        return $this->render('participation/edit.html.twig', [
-            'participation' => $participation,
-            'form' => $form,
-        ]);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Participation mise à jour avec succès.');
+        return $this->redirectToRoute('app_assemblee_generale_show', [
+            'id' => $participation->getAssembleeGenerale()->getId(),
+        ], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('participation/edit.html.twig', [
+        'participation' => $participation,
+        'form' => $form,
+    ]);
+}
 
     #[Route('/{id}', name: 'app_participation_delete', methods: ['POST'])]
     public function delete(Request $request, Participation $participation, EntityManagerInterface $entityManager): Response
@@ -83,24 +101,40 @@ final class ParticipationController extends AbstractController
         return $this->redirectToRoute('app_participation_index', [], Response::HTTP_SEE_OTHER);
     }
 
-
 #[Route('/assemblee/{id}/presence/add', name: 'app_participation_add_presence', methods: ['GET', 'POST'])]
 public function addPresence(Request $request, AssembleeGenerale $ag, EntityManagerInterface $em): Response
 {
     $participation = new Participation();
-    $participation->setAssembleeGenerale($ag); 
+    $participation->setAssembleeGenerale($ag);
 
-    $form = $this->createForm(ParticipationForm::class, $participation);
+    $form = $this->createForm(ParticipationForm::class, $participation, [
+        'assemblee' => $ag,
+    ]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+        // Vérifier si le copropriétaire participe déjà
+        $existingParticipation = $em->getRepository(Participation::class)->findOneBy([
+            'assemblee' => $ag,
+            'participant' => $participation->getParticipant(),
+        ]);
+
+        if ($existingParticipation) {
+            $this->addFlash('error', 'Ce copropriétaire participe déjà à cette assemblée générale.');
+            return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+        }
+
+        // S'assurer qu'un participant présent n'a pas de mandataire
+        if ($participation->isPresent() && $participation->getMandataire()) {
+            $this->addFlash('error', 'Un participant présent ne peut pas avoir de mandataire.');
+            return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+        }
+
         $em->persist($participation);
         $em->flush();
 
         $this->addFlash('success', 'Présence enregistrée avec succès.');
-        return $this->redirectToRoute('app_assemblee_generale_show', [
-            'id' => $ag->getId(),
-        ]);
+        return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
     }
 
     return $this->render('participation/add_presence.html.twig', [
@@ -109,24 +143,47 @@ public function addPresence(Request $request, AssembleeGenerale $ag, EntityManag
     ]);
 }
 
-
-
 #[Route('/assemblee/{id}/representation/add', name: 'participation_add_representant', methods: ['GET', 'POST'])]
 public function addRepresentant(Request $request, AssembleeGenerale $ag, EntityManagerInterface $em): Response
 {
     $participation = new Participation();
     $participation->setAssembleeGenerale($ag);
-    $participation->setPresent(false); // représenté
+    $participation->setPresent(false);
 
     $form = $this->createForm(ParticipationForm::class, $participation, [
-        'action_type' => 'representation',
+        'assemblee' => $ag,
     ]);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
+        // Vérifier si le copropriétaire participe déjà
+        $existingParticipation = $em->getRepository(Participation::class)->findOneBy([
+            'assemblee' => $ag,
+            'participant' => $participation->getParticipant(),
+        ]);
+
+        if ($existingParticipation) {
+            $this->addFlash('error', 'Ce copropriétaire participe déjà à cette assemblée générale.');
+            return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+        }
+
+        // Vérifier que le mandataire n'est pas déjà utilisé
+        if ($participation->getMandataire()) {
+            $existingMandataire = $em->getRepository(Participation::class)->findOneBy([
+                'assemblee' => $ag,
+                'mandataire' => $participation->getMandataire(),
+            ]);
+
+            if ($existingMandataire) {
+                $this->addFlash('error', 'Ce copropriétaire est déjà mandataire pour un autre participant.');
+                return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
+            }
+        }
+
         $em->persist($participation);
         $em->flush();
 
+        $this->addFlash('success', 'Représentant enregistré avec succès.');
         return $this->redirectToRoute('app_assemblee_generale_show', ['id' => $ag->getId()]);
     }
 

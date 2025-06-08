@@ -621,6 +621,7 @@
     </service>
     <service id="App\Form\ParticipationForm" class="App\Form\ParticipationForm" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="App\Form\QuestionADiscuterForm" class="App\Form\QuestionADiscuterForm" autowire="true" autoconfigure="true">
       <tag name="form.type"/>

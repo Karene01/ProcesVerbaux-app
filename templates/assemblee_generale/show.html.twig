@@ -48,14 +48,26 @@
                         <dt class="col-5">Statut :</dt>
                         <dd class="col-7">
                             {% if assemblee_generale.terminee %}
-                                <span class="badge bg-dark"><i class="fas fa-check"></i> Terminée</span>
+                                <span class="badge bg-dark">
+                                    <i class="fas fa-check"></i> Terminée
+                                </span>
+                                {% if assemblee_generale.dateCommencement %}
+                                    <br><small class="text-muted">Commencée le {{ assemblee_generale.dateCommencement|date('d/m/Y à H:i') }}</small>
+                                {% endif %}
                             {% elseif assemblee_generale.ouverte %}
-                                <span class="badge bg-success"><i class="fas fa-play"></i> En cours</span>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-play"></i> En cours
+                                </span>
+                                {% if assemblee_generale.dateCommencement %}
+                                    <br><small class="text-muted">Commencée le {{ assemblee_generale.dateCommencement|date('d/m/Y à H:i') }}</small>
+                                {% endif %}
                             {% else %}
-                                <span class="badge bg-secondary"><i class="fas fa-hourglass-start"></i> Non commencée</span>
+                                <span class="badge bg-secondary">
+                                    <i class="fas fa-hourglass-start"></i> Non commencée
+                                </span>
                             {% endif %}
-
                         </dd>
+
                     </dl>
                 </div>
             </div>
@@ -159,9 +171,16 @@
                     <h5 class="card-title mb-0">
                         <i class="fas fa-user-friends"></i> Participants
                     </h5>
-                    <a href="{{ path('app_participation_add_presence', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
-                        <i class="fas fa-user-plus"></i> Ajouter
-                    </a>
+                    {% if assemblee_generale.ouverte %}
+    <a href="{{ path('app_participation_add_presence', {id: assemblee_generale.id}) }}" class="btn btn-sm btn-outline-secondary">
+        <i class="fas fa-user-plus"></i> Ajouter
+    </a>
+{% else %}
+    <button class="btn btn-sm btn-outline-secondary" disabled title="L'assemblée n'a pas encore commencé.">
+        <i class="fas fa-user-plus"></i> Ajouter
+    </button>
+{% endif %}
+
                 </div>
                 <div class="card-body">
                     {% if participations is empty %}

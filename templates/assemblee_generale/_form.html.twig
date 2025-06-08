@@ -12,7 +12,12 @@
             <div class="col-md-6">
                 <div class="mb-3">
                     {{ form_label(form.date, 'Date de l\'assemblée', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                    {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.date, {
+                        'attr': {
+                            'class': 'form-control',
+                            'required': 'required'
+                        }
+                    }) }}
                     {{ form_errors(form.date) }}
                 </div>
             </div>
@@ -21,7 +26,12 @@
             <div class="col-md-6">
                 <div class="mb-3">
                     {{ form_label(form.heure, 'Heure de début', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                    {{ form_widget(form.heure, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(form.heure, {
+                        'attr': {
+                            'class': 'form-control',
+                            'required': 'required'
+                        }
+                    }) }}
                     {{ form_errors(form.heure) }}
                 </div>
             </div>
@@ -30,18 +40,14 @@
         <!-- Copropriété -->
         <div class="mb-3">
             {{ form_label(form.copropriete, 'Copropriété', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-            {{ form_widget(form.copropriete, {'attr': {'class': 'form-select'}}) }}
+            {{ form_widget(form.copropriete, {
+                'attr': {
+                    'class': 'form-select',
+                    'required': 'required'
+                }
+            }) }}
             {{ form_errors(form.copropriete) }}
             <div class="form-text">Sélectionnez la copropriété concernée par cette assemblée</div>
-        </div>
-
-        <!-- Statut ouvert/fermé -->
-        <div class="mb-3">
-            <div class="form-check">
-                {{ form_widget(form.ouverte, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_label(form.ouverte, 'Assemblée ouverte', {'label_attr': {'class': 'form-check-label'}}) }}
-            </div>
-            <div class="form-text">Cochez si l'assemblée est en cours ou doit démarrer immédiatement</div>
         </div>
     </div>
 </div>
