@@ -2,7 +2,7 @@
 
 Application web Symfony pour la gestion des assemblées générales de copropriétés, incluant la gestion des copropriétaires, des votes et des procès-verbaux.
 
-## Nouveau MLD
+## Nouveaux MCD et MLD
 
 <img src="docs/images/MLD2.png">
 
@@ -179,11 +179,6 @@ php bin/console doctrine:schema:validate
 # Profiler web
 symfony open:local --path=/_profiler
 ```
-
-
-## 🤝 Contribution
-
-Le projet utilise Git avec une branche `dev_a` pour le développement. La configuration email pour GitHub est configurée pour préserver la confidentialité.
 
 ---
 
